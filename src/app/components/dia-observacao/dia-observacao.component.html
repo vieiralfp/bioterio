@@ -1,0 +1,11 @@
+<div class="dia-observacao-header">
+	{{ dia }}   
+</div>
+<div class="dia-observacao">
+	{{ data }}   
+</div>        
+<div (click)="getPosition($event)">
+<div class="dia-observacao" *ngFor="let n of camundongo"   >
+	{{ n.valor }}
+</div>
+</div>
