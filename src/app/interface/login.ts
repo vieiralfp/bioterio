@@ -1,6 +1,6 @@
 export interface Login {
 
-        id: string;
+        id: number;
         assinatura: string;
         ativo: boolean;
         crmv: string;

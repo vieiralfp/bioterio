@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import 'hammerjs';
 
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
