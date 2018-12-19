@@ -76,40 +76,54 @@ export class DiaObservacaoComponent implements OnInit {
         text: '|',
         handler: () => {
           this.setValor(camundongo.i, '|');
-          this.x[camundongo.i] = false;
         }
       },
       {
         text: 'D',
         handler: () => {
           this.setValor(camundongo.i, 'D');
-          this.x[camundongo.i] = false;
         }
       },
       {
         text: 'M',
         handler: () => {
           this.setValor(camundongo.i, 'M');
-          this.x[camundongo.i] = false;
         }
       },
       {
         text: 'P',
         handler: () => {
           this.setValor(camundongo.i, 'P');
-          this.x[camundongo.i] = false;
         }
       },
       {
         text: 'E',
         handler: () => {
           this.setValor(camundongo.i, 'E');
-          this.x[camundongo.i] = false;
         }
       }]
     });
 
+    alert.onWillDismiss().then(
+        () => {
+            for ( const i in this.x) {
+              if ( i != null) {
+                this.x[i] = false;
+              }
+            }
+          }
+      );
+
+
     await alert.present();
+  }
+
+  panEvent(evt) {
+    console.log(evt.center.y);
+  }
+
+  tap(i) {
+    console.log(i);
   }
 
 

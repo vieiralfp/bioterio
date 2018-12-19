@@ -4,7 +4,9 @@
 <div class="dia-observacao">
 	{{ data }}   
 </div>        
-
-	<div class="dia-observacao" *ngFor="let n of camundongo"  (click)="presentAlert(n); x[n.i] = true" [ngClass]="{'background1': x[n.i]}">
+<div (pan)="panEvent($event)">
+	<div class="dia-observacao" *ngFor="let n of camundongo"  (click)="presentAlert(n); x[n.i] = true" [ngClass]="{'background1': x[n.i]}"
+	(tap)="tap(n.i)">
 		{{ n.valor }}
 	</div>
+</div>
