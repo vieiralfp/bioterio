@@ -1,7 +1,17 @@
 <p>Observação</p>
 
+<div><b>Data: </b>{{ observacao.datainoculacao | date: 'dd.MM.yy' }}</div>
+<div><b>Espécie: </b>{{ observacao.principal.especieid.especie }} </div>
+<div><b>Qtd Inoc.: </b>{{ observacao.qtdInoculados }} </div>
+
 <div class="div-scroll">
     <div style="width: 1200px">
       <app-dia-observacao *ngFor="let dia of diaObservacao" [diaObservacao]="dia" class="div-left"></app-dia-observacao>
   </div>
+</div>
+<div>
+  <b>Responsável Inoculação:</b><br/>
+   {{ observacao.responsavelInoculacao.nome }}<br/><br/>
+   <b>Responsável Finalização:</b><br/>
+   {{ observacao.responsavelFinalizacao.nome }}
 </div>

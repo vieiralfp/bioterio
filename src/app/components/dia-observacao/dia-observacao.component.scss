@@ -1,7 +1,7 @@
 .dia-observacao{
     width: 40px; 
     height: 20px;;
-    border: solid 1px; 
+    border: solid 1px black; 
     border-top: 0px;
     text-align: center;
     padding: 0px;
@@ -12,8 +12,8 @@
     background-color: yellow;
 }
 
-background2{
-    background-color: white;
+.background2{
+    color: rgba($color:gray, $alpha: 0.3);
 }
 
 .dia-observacao-header{
@@ -23,3 +23,14 @@ background2{
     font-weight: bold;
 }
 
+.circulo{
+    
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 18px;
+    width: 20px;
+    border: 1px solid red;
+    background-color: transparent;
+}

@@ -11,7 +11,7 @@ export class InoculacaoService {
   constructor(private http: HttpClient) { }
 
   getInoculacao(id): Observable<Login> {
-    return this.http.get<Login>('http://localhost:8080/Bioterio/rest/login/' + id );
+    return this.http.get<Login>('http://localhost:8080/bioteriorest/rest/login/' + id );
   }
 }
 

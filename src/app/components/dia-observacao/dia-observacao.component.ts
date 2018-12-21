@@ -17,7 +17,9 @@ export class DiaObservacaoComponent implements OnInit {
   constructor(public alertCtrl: ActionSheetController) {
 
   }
-  public x = [];
+  public class1 = [];
+  public class2 = [];
+  public seisDias = false;
 
   public camundongo = [];
 
@@ -27,35 +29,46 @@ export class DiaObservacaoComponent implements OnInit {
 
   private preencherCampos(diaObservacao: DiaObservacao) {
 
+    this.dia = (Math.ceil((diaObservacao.dataobservacao - diaObservacao.inoculacao.datainoculacao) / (24 * 60 * 60 * 1000)));
+    this.seisDias = this.dia === 6;
+
     let camundongoN = 0;
     for (let index = 0; index < diaObservacao.saudaveis; index++) {
       this.setValor(camundongoN, '|');
-      this.x[camundongoN] = false;
+      this.setClassesFalse(camundongoN);
       camundongoN++;
     }
 
     for (let index = 0; index < diaObservacao.doentes; index++) {
       this.setValor(camundongoN, 'D');
-      this.x[camundongoN] = false;
+      this.setClassesFalse(camundongoN);
       camundongoN++;
     }
 
     for (let index = 0; index < diaObservacao.perdidos; index++) {
       this.setValor(camundongoN, 'P');
-      this.x[camundongoN] = false;
+      this.setClassesFalse(camundongoN);
       camundongoN++;
     }
 
     for (let index = 0; index < diaObservacao.mortos; index++) {
       this.setValor(camundongoN, 'M');
-      this.x[camundongoN] = false;
+      this.setClassesFalse(camundongoN);
       camundongoN++;
     }
 
     for (let index = 0; index < diaObservacao.eutanasias; index++) {
       this.setValor(camundongoN, 'E');
-      this.x[camundongoN] = false;
+      this.setClassesFalse(camundongoN);
       camundongoN++;
+    }
+
+    if (camundongoN < 9) {
+      for (camundongoN; camundongoN < 10; camundongoN++) {
+        this.setValor(camundongoN, (camundongoN + 1).toString());
+        this.class1[camundongoN] = false;
+        this.class2[camundongoN] = true;
+      }
     }
 
   }
@@ -63,9 +76,16 @@ export class DiaObservacaoComponent implements OnInit {
     this.camundongo[i] = {i: i, valor: valor};
   }
 
+  setClassesFalse(i) {
+    this.class1[i] = false;
+    this.class2[i] = false;
+  }
+
   getValor(i: number) {
     console.log(this.camundongo[i]);
   }
+
+
 
 
   async presentAlert(camundongo) {
@@ -106,9 +126,9 @@ export class DiaObservacaoComponent implements OnInit {
 
     alert.onWillDismiss().then(
         () => {
-            for ( const i in this.x) {
+            for ( const i in this.class1) {
               if ( i != null) {
-                this.x[i] = false;
+                this.class1[i] = false;
               }
             }
           }
