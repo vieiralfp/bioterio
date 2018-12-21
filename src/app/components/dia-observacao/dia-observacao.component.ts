@@ -29,7 +29,7 @@ export class DiaObservacaoComponent implements OnInit {
 
   private preencherCampos(diaObservacao: DiaObservacao) {
 
-    this.dia = (Math.ceil((diaObservacao.dataobservacao - diaObservacao.inoculacao.datainoculacao) / (24 * 60 * 60 * 1000)));
+    this.dia = (Math.ceil((diaObservacao.dataobservacao - diaObservacao.inoculacao.dataInoculacao) / (24 * 60 * 60 * 1000)));
     this.seisDias = this.dia === 6;
 
     let camundongoN = 0;
@@ -90,10 +90,11 @@ export class DiaObservacaoComponent implements OnInit {
 
   async presentAlert(camundongo) {
     const alert = await this.alertCtrl.create({
-      header: 'Observação Camundongo',
-      mode: 'ios',
+     cssClass: 'EditIcon',
+     // mode: 'ios',
       buttons: [{
         text: '|',
+        cssClass: 'EditIcon',
         handler: () => {
           this.setValor(camundongo.i, '|');
         }
@@ -121,8 +122,17 @@ export class DiaObservacaoComponent implements OnInit {
         handler: () => {
           this.setValor(camundongo.i, 'E');
         }
+      },
+      {
+        text: 'Vazio',
+        handler: () => {
+          this.setValor(camundongo.i, camundongo.i + 1);
+          this.class2[camundongo.i] = true;
+        }
       }]
     });
+
+    alert.translucent = true;
 
     alert.onWillDismiss().then(
         () => {

@@ -3,12 +3,13 @@ import { Login } from './login';
 
 export interface Inoculacao {
     id: number;
-    datainoculacao: number;
+    dataInoculacao: number;
     principal: Principal;
     qtdInoculados: number;
-    idadeCamundongos: string;
+    idadeCamundongo: string;
     statusReinoculacao: string;
     responsavelInoculacao: Login;
     dataFinalizacao: number;
     responsavelFinalizacao: Login;
+    observacoes: string;
 }

@@ -10,11 +10,18 @@
 }
 .background1{
     background-color: yellow;
+    
 }
 
 .background2{
     color: rgba($color:gray, $alpha: 0.3);
 }
+
+.EditIcon {
+    ion-icon{
+        color: red;
+    }
+ }
 
 .dia-observacao-header{
     width: 40px; 

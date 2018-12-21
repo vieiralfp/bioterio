@@ -4,6 +4,7 @@ import { DiaObservacaoComponent } from '../dia-observacao/dia-observacao.compone
 import { DiaObservacao } from 'src/app/interface/dia-observacao';
 import { InoculacaoService } from 'src/app/providers/inoculacao.service';
 import { Login } from 'src/app/interface/login';
+import { Principal } from 'src/app/interface/principal';
 
 
 @Component({
@@ -20,10 +21,10 @@ export class ObservacaoComponent implements OnInit {
   public login: Login;
 
   public observacao: Inoculacao = {
-    id: 1,
+    id: null,
     dataFinalizacao: 1542160800000,
-    datainoculacao: 1539572400000,
-    idadeCamundongos: '21',
+    dataInoculacao: 1539572400000,
+    idadeCamundongo: '21 - 28 dias',
     principal: null,
     qtdInoculados: 8,
     responsavelFinalizacao: this.login,
@@ -31,7 +32,8 @@ export class ObservacaoComponent implements OnInit {
                               crmv: '1520', login: 'lfpv',
                               nome: 'Luiz Fernando', nomearquivo: '',
                               senha: '1234', tipousuario: 'veterinario'},*/,
-    statusReinoculacao: 'não reinoculado'
+    statusReinoculacao: 'não reinoculado',
+    observacoes: ''
 };
 
 private diaObservacao1: DiaObservacao = { id: 0,
@@ -326,14 +328,29 @@ constructor(private inoculacaoService: InoculacaoService) {
       ];
   }
 
+  salvarInoculacao() {
+    this.inoculacaoService.salvarInoculacao(this.observacao)
+    .subscribe(() => {console.log('salvar inoculação'); },
+    (erro) => {console.log('erro' + erro); } );
+
+  }
+
   ngOnInit() {
     this.inoculacaoService.getInoculacao(2).
     subscribe( (data: Login) => {
       this.login = data;
       console.log(this.login.nome);
-      this.iniciar();
       this.observacao.responsavelInoculacao = this.login;
     });
+
+    this.inoculacaoService.getPrincipal(11645).subscribe( (principal: Principal) => {
+      this.observacao.principal = principal;
+      console.log(principal);
+    },
+    (error) => {
+      console.log('Falha ao buscar Principal' + error);
+    });
+    this.iniciar();
   }
 
 }
