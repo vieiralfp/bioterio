@@ -42,8 +42,8 @@ doentes: 0,
 mortos: 1,
 eutanasias: 0,
 perdidos: 0,
-dataobservacao: 1539658800000,
-inoculacao: this.observacao};
+dataObservacao: 1539658800000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao2: DiaObservacao = { id: 0,
 saudaveis: 7,
@@ -51,8 +51,8 @@ doentes: 0,
 mortos: 0,
 eutanasias: 0,
 perdidos: 0,
-dataobservacao: 1539745200000,
-inoculacao: this.observacao};
+dataObservacao: 1539745200000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao3: DiaObservacao = { id: 0,
 saudaveis: 6,
@@ -60,8 +60,8 @@ doentes: 1,
 mortos: 1,
 eutanasias: 1,
 perdidos: 1,
-dataobservacao: 1539831600000,
-inoculacao: this.observacao};
+dataObservacao: 1539831600000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao4: DiaObservacao = { id: 0,
 saudaveis: 5,
@@ -69,8 +69,8 @@ doentes: 1,
 mortos: 2,
 eutanasias: 1,
 perdidos: 1,
-dataobservacao: 1539918000000,
-inoculacao: this.observacao};
+dataObservacao: 1539918000000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao5: DiaObservacao = { id: 0,
 saudaveis: 6,
@@ -78,8 +78,8 @@ doentes: 1,
 mortos: 1,
 eutanasias: 1,
 perdidos: 1,
-dataobservacao: 1540004400000,
-inoculacao: this.observacao};
+dataObservacao: 1540004400000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao6: DiaObservacao = { id: 0,
 saudaveis: 5,
@@ -87,8 +87,8 @@ doentes: 1,
 mortos: 2,
 eutanasias: 1,
 perdidos: 1,
-dataobservacao: 1540090800000,
-inoculacao: this.observacao};
+dataObservacao: 1540090800000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao7: DiaObservacao = { id: 0,
 saudaveis: 6,
@@ -96,8 +96,8 @@ doentes: 1,
 mortos: 1,
 eutanasias: 1,
 perdidos: 1,
-dataobservacao: 1540177200000,
-inoculacao: this.observacao};
+dataObservacao: 1540177200000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao8: DiaObservacao = { id: 0,
 saudaveis: 5,
@@ -105,8 +105,8 @@ doentes: 1,
 mortos: 2,
 eutanasias: 1,
 perdidos: 1,
-dataobservacao: 1540263600000,
-inoculacao: this.observacao};
+dataObservacao: 1540263600000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao9: DiaObservacao = { id: 0,
 saudaveis: 6,
@@ -114,8 +114,8 @@ doentes: 1,
 mortos: 1,
 eutanasias: 1,
 perdidos: 1,
-dataobservacao: 1540350000000,
-inoculacao: this.observacao};
+dataObservacao: 1540350000000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao10: DiaObservacao = { id: 0,
 saudaveis: 5,
@@ -123,8 +123,8 @@ doentes: 1,
 mortos: 2,
 eutanasias: 1,
 perdidos: 1,
-dataobservacao: 1540436400000,
-inoculacao: this.observacao};
+dataObservacao: 1540436400000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao11: DiaObservacao = { id: 0,
 saudaveis: 6,
@@ -132,8 +132,8 @@ doentes: 1,
 mortos: 1,
 eutanasias: 1,
 perdidos: 1,
-dataobservacao: 1540522800000,
-inoculacao: this.observacao};
+dataObservacao: 1540522800000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao12: DiaObservacao = { id: 0,
 saudaveis: 5,
@@ -141,8 +141,8 @@ doentes: 1,
 mortos: 2,
 eutanasias: 1,
 perdidos: 1,
-dataobservacao: 1540609200000,
-inoculacao: this.observacao};
+dataObservacao: 1540609200000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao13: DiaObservacao = { id: 0,
 saudaveis: 6,
@@ -150,8 +150,8 @@ doentes: 1,
 mortos: 1,
 eutanasias: 1,
 perdidos: 1,
-dataobservacao: 1540695600000,
-inoculacao: this.observacao};
+dataObservacao: 1540695600000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao14: DiaObservacao = { id: 0,
 saudaveis: 5,
@@ -159,8 +159,8 @@ doentes: 1,
 mortos: 2,
 eutanasias: 1,
 perdidos: 1,
-dataobservacao: 1540782000000,
-inoculacao: this.observacao};
+dataObservacao: 1540782000000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao15: DiaObservacao = { id: 0,
 saudaveis: 5,
@@ -168,8 +168,8 @@ doentes: 1,
 mortos: 2,
 eutanasias: 1,
 perdidos: 1,
-dataobservacao: 1540868400000,
-inoculacao: this.observacao};
+dataObservacao: 1540868400000,
+inoculacao: this.observacao, observacoes: '' };
 
 private diaObservacao16: DiaObservacao = { id: 0,
   saudaveis: 5,
@@ -177,8 +177,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
   mortos: 2,
   eutanasias: 1,
   perdidos: 1,
-  dataobservacao: 1540954800000,
-  inoculacao: this.observacao};
+  dataObservacao: 1540954800000,
+  inoculacao: this.observacao, observacoes: '' };
 
   private diaObservacao17: DiaObservacao = { id: 0,
     saudaveis: 5,
@@ -186,8 +186,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
     mortos: 2,
     eutanasias: 1,
     perdidos: 1,
-    dataobservacao: 1541041200000,
-    inoculacao: this.observacao};
+    dataObservacao: 1541041200000,
+    inoculacao: this.observacao, observacoes: '' };
 
     private diaObservacao18: DiaObservacao = { id: 0,
       saudaveis: 5,
@@ -195,8 +195,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
       mortos: 2,
       eutanasias: 1,
       perdidos: 1,
-      dataobservacao: 1541127600000,
-      inoculacao: this.observacao};
+      dataObservacao: 1541127600000,
+      inoculacao: this.observacao, observacoes: '' };
 
       private diaObservacao19: DiaObservacao = { id: 0,
         saudaveis: 5,
@@ -204,8 +204,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
         mortos: 2,
         eutanasias: 1,
         perdidos: 1,
-        dataobservacao: 1541214000000,
-        inoculacao: this.observacao};
+        dataObservacao: 1541214000000,
+        inoculacao: this.observacao, observacoes: '' };
 
         private diaObservacao20: DiaObservacao = { id: 0,
           saudaveis: 5,
@@ -213,8 +213,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
           mortos: 2,
           eutanasias: 1,
           perdidos: 1,
-          dataobservacao: 1541300400000,
-          inoculacao: this.observacao};
+          dataObservacao: 1541300400000,
+          inoculacao: this.observacao, observacoes: '' };
 
           private diaObservacao21: DiaObservacao = { id: 0,
             saudaveis: 5,
@@ -222,8 +222,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
             mortos: 2,
             eutanasias: 1,
             perdidos: 1,
-            dataobservacao: 1541383200000,
-            inoculacao: this.observacao};
+            dataObservacao: 1541383200000,
+            inoculacao: this.observacao, observacoes: '' };
 
             private diaObservacao22: DiaObservacao = { id: 0,
               saudaveis: 5,
@@ -231,8 +231,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
               mortos: 2,
               eutanasias: 1,
               perdidos: 1,
-              dataobservacao: 1541469600000,
-              inoculacao: this.observacao};
+              dataObservacao: 1541469600000,
+              inoculacao: this.observacao, observacoes: '' };
 
               private diaObservacao23: DiaObservacao = { id: 0,
                 saudaveis: 5,
@@ -240,8 +240,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
                 mortos: 2,
                 eutanasias: 1,
                 perdidos: 1,
-                dataobservacao: 1541556000000,
-                inoculacao: this.observacao};
+                dataObservacao: 1541556000000,
+                inoculacao: this.observacao, observacoes: '' };
 
                 private diaObservacao24: DiaObservacao = { id: 0,
                   saudaveis: 5,
@@ -249,8 +249,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
                   mortos: 2,
                   eutanasias: 1,
                   perdidos: 1,
-                  dataobservacao: 1541642400000,
-                  inoculacao: this.observacao};
+                  dataObservacao: 1541642400000,
+                  inoculacao: this.observacao, observacoes: '' };
 
                   private diaObservacao25: DiaObservacao = { id: 0,
                     saudaveis: 5,
@@ -258,8 +258,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
                     mortos: 2,
                     eutanasias: 1,
                     perdidos: 1,
-                    dataobservacao: 1541728800000,
-                    inoculacao: this.observacao};
+                    dataObservacao: 1541728800000,
+                    inoculacao: this.observacao, observacoes: '' };
 
                     private diaObservacao26: DiaObservacao = { id: 0,
                       saudaveis: 5,
@@ -267,8 +267,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
                       mortos: 2,
                       eutanasias: 1,
                       perdidos: 1,
-                      dataobservacao: 1541815200000,
-                      inoculacao: this.observacao};
+                      dataObservacao: 1541815200000,
+                      inoculacao: this.observacao, observacoes: '' };
 
                       private diaObservacao27: DiaObservacao = { id: 0,
                         saudaveis: 5,
@@ -276,8 +276,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
                         mortos: 2,
                         eutanasias: 1,
                         perdidos: 1,
-                        dataobservacao: 1541901600000,
-                        inoculacao: this.observacao};
+                        dataObservacao: 1541901600000,
+                        inoculacao: this.observacao, observacoes: '' };
 
                         private diaObservacao28: DiaObservacao = { id: 0,
                           saudaveis: 5,
@@ -285,8 +285,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
                           mortos: 2,
                           eutanasias: 1,
                           perdidos: 1,
-                          dataobservacao: 1541988000000,
-                          inoculacao: this.observacao};
+                          dataObservacao: 1541988000000,
+                          inoculacao: this.observacao, observacoes: '' };
 
                           private diaObservacao29: DiaObservacao = { id: 0,
                             saudaveis: 5,
@@ -294,8 +294,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
                             mortos: 2,
                             eutanasias: 1,
                             perdidos: 1,
-                            dataobservacao: 1542074400000,
-                            inoculacao: this.observacao};
+                            dataObservacao: 1542074400000,
+                            inoculacao: this.observacao, observacoes: '' };
 
                             private diaObservacao30: DiaObservacao = { id: 0,
                               saudaveis: 5,
@@ -303,8 +303,8 @@ private diaObservacao16: DiaObservacao = { id: 0,
                               mortos: 2,
                               eutanasias: 1,
                               perdidos: 1,
-                              dataobservacao: 1542160800000,
-                              inoculacao: this.observacao};
+                              dataObservacao: 1542160800000,
+                              inoculacao: this.observacao, observacoes: '' };
 constructor(private inoculacaoService: InoculacaoService) {
 
 }
@@ -329,10 +329,14 @@ constructor(private inoculacaoService: InoculacaoService) {
   }
 
   salvarInoculacao() {
-    this.inoculacaoService.salvarInoculacao(this.observacao)
+    this.inoculacaoService.salvarInoculacao(this.observacao )
     .subscribe(() => {console.log('salvar inoculação'); },
     (erro) => {console.log('erro' + erro); } );
 
+  }
+
+  getValor(n) {
+    console.log(this.diaObservacao[n]);
   }
 
   ngOnInit() {

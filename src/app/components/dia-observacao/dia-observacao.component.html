@@ -4,7 +4,7 @@
 	</div>
 </div>
 <div class="dia-observacao">
-	{{ diaObservacao.dataobservacao | date: "d" }}   
+	{{ diaObservacao.dataObservacao | date: "d" }}   
 </div>        
 
 <div class="dia-observacao" *ngFor="let n of camundongo"  (click)="presentAlert(n); class1[n.i] = true" [ngClass]="{'background1': class1[n.i], 'background2': class2[n.i]}">

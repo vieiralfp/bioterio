@@ -25,11 +25,10 @@ export class DiaObservacaoComponent implements OnInit {
 
 
   public dia = 0;
-  public data = 0;
 
   private preencherCampos(diaObservacao: DiaObservacao) {
 
-    this.dia = (Math.ceil((diaObservacao.dataobservacao - diaObservacao.inoculacao.dataInoculacao) / (24 * 60 * 60 * 1000)));
+    this.dia = (Math.ceil((diaObservacao.dataObservacao - diaObservacao.inoculacao.dataInoculacao) / (24 * 60 * 60 * 1000)));
     this.seisDias = this.dia === 6;
 
     let camundongoN = 0;
@@ -81,8 +80,48 @@ export class DiaObservacaoComponent implements OnInit {
     this.class2[i] = false;
   }
 
-  getValor(i: number) {
-    console.log(this.camundongo[i]);
+  getDiaObservacao() {
+    let saudaveis = 0;
+    let doentes = 0;
+    let eutanasias = 0;
+    let perdidos = 0;
+    let mortos = 0;
+
+    this.camundongo.forEach(element => {
+
+      console.log('element=' + element);
+
+      switch (element.valor) {
+        case '|':
+          saudaveis++;
+          break;
+        case 'D' :
+          doentes++;
+          break;
+        case 'E':
+          eutanasias++;
+          break;
+        case 'P':
+          perdidos++;
+          break;
+        case 'M':
+          mortos++;
+          break;
+        default:
+
+        }
+      });
+     const valor: DiaObservacao = {id: this.diaObservacao.id,
+                                 saudaveis: saudaveis,
+                                  mortos: mortos,
+                                  doentes: doentes,
+                                  perdidos: perdidos,
+                                  eutanasias: eutanasias,
+                                  dataObservacao: this.diaObservacao.dataObservacao,
+                                  inoculacao: this.diaObservacao.inoculacao,
+                                  observacoes: this.diaObservacao.observacoes };
+
+    console.log(valor);
   }
 
 

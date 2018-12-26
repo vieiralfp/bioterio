@@ -7,6 +7,8 @@ export interface DiaObservacao {
     mortos: number;
     eutanasias: number;
     perdidos: number;
-    dataobservacao: number;
+    dataObservacao: number;
     inoculacao: Inoculacao;
+    observacoes: string;
+
 }
