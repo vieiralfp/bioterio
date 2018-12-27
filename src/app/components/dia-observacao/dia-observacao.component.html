@@ -1,4 +1,4 @@
-<div class="dia-observacao-header">
+<div class="dia-observacao dia-observacao-header">
 	<div [ngClass]="{'circulo': seisDias}">
 		{{ dia }}   
 	</div>
@@ -7,6 +7,8 @@
 	{{ diaObservacao.dataObservacao | date: "d" }}   
 </div>        
 
-<div class="dia-observacao" *ngFor="let n of camundongo"  (click)="presentAlert(n); class1[n.i] = true" [ngClass]="{'background1': class1[n.i], 'background2': class2[n.i]}">
-	{{ n.valor }}
+<div class="dia-observacao" *ngFor="let n of camundongo; let i = index"  (click)="presentAlert(i); class1[i] = true"
+	 [ngClass]="{'background1': class1[i], 'background2': class2[i]}">
+	 <img *ngIf="n === '|'" src="assets\icon\saudavel.png"/>
+	<span *ngIf="n !== '|'"> {{ n }} </span> 
 </div>

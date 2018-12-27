@@ -7,8 +7,28 @@
 
 .div-scroll {
     padding: 5px;
+    padding-left: 0px;
     overflow-x: scroll;
     
+}
+.div-numeracao-lateral {
+    padding-top: 5px;
+    margin-left: 5px;
+    position: relative;
+    float: left;
+    width: 20px;
+}
+.numeracao-lateral{
+    width: 20px;
+    height: 20px; 
+    border-bottom: solid 1px black;
+    border-right: solid 1px black;
+    text-align: center;
+}
+
+.span-lateral {
+    vertical-align: middle; 
+    font-size: 8px;
 }
 
 $colors: (

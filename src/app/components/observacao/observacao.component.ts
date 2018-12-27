@@ -20,6 +20,8 @@ export class ObservacaoComponent implements OnInit {
 
   public login: Login;
 
+  public n = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+
   public observacao: Inoculacao = {
     id: null,
     dataFinalizacao: 1542160800000,

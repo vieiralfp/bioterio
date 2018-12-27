@@ -31,48 +31,49 @@ export class DiaObservacaoComponent implements OnInit {
     this.dia = (Math.ceil((diaObservacao.dataObservacao - diaObservacao.inoculacao.dataInoculacao) / (24 * 60 * 60 * 1000)));
     this.seisDias = this.dia === 6;
 
-    let camundongoN = 0;
+    let i = 0;
     for (let index = 0; index < diaObservacao.saudaveis; index++) {
-      this.setValor(camundongoN, '|');
-      this.setClassesFalse(camundongoN);
-      camundongoN++;
+      this.setCamundongo(i, '|');
+      this.setClassesFalse(i);
+      i++;
     }
 
     for (let index = 0; index < diaObservacao.doentes; index++) {
-      this.setValor(camundongoN, 'D');
-      this.setClassesFalse(camundongoN);
-      camundongoN++;
+      this.setCamundongo(i, 'D');
+      this.setClassesFalse(i);
+      i++;
     }
 
     for (let index = 0; index < diaObservacao.perdidos; index++) {
-      this.setValor(camundongoN, 'P');
-      this.setClassesFalse(camundongoN);
-      camundongoN++;
+      this.setCamundongo(i, 'P');
+      this.setClassesFalse(i);
+      i++;
     }
 
     for (let index = 0; index < diaObservacao.mortos; index++) {
-      this.setValor(camundongoN, 'M');
-      this.setClassesFalse(camundongoN);
-      camundongoN++;
+      this.setCamundongo(i, 'M');
+      this.setClassesFalse(i);
+      i++;
     }
 
     for (let index = 0; index < diaObservacao.eutanasias; index++) {
-      this.setValor(camundongoN, 'E');
-      this.setClassesFalse(camundongoN);
-      camundongoN++;
+      this.setCamundongo(i, 'E');
+      this.setClassesFalse(i);
+      i++;
     }
 
-    if (camundongoN < 9) {
-      for (camundongoN; camundongoN < 10; camundongoN++) {
-        this.setValor(camundongoN, (camundongoN + 1).toString());
-        this.class1[camundongoN] = false;
-        this.class2[camundongoN] = true;
+    if (i < 9) {
+      for (i; i < 10; i++) {
+        this.setCamundongo(i, (i + 1).toString());
+        this.class1[i] = false;
+        this.class2[i] = true;
       }
     }
 
   }
-  setValor(i: number, valor: string) {
-    this.camundongo[i] = {i: i, valor: valor};
+  setCamundongo(i: number, valor: string) {
+    this.camundongo[i] = valor;
+    this.class2[i] = false;
   }
 
   setClassesFalse(i) {
@@ -80,7 +81,7 @@ export class DiaObservacaoComponent implements OnInit {
     this.class2[i] = false;
   }
 
-  getDiaObservacao() {
+  getDiaObservacao(): DiaObservacao {
     let saudaveis = 0;
     let doentes = 0;
     let eutanasias = 0;
@@ -89,9 +90,7 @@ export class DiaObservacaoComponent implements OnInit {
 
     this.camundongo.forEach(element => {
 
-      console.log('element=' + element);
-
-      switch (element.valor) {
+      switch (element) {
         case '|':
           saudaveis++;
           break;
@@ -122,51 +121,48 @@ export class DiaObservacaoComponent implements OnInit {
                                   observacoes: this.diaObservacao.observacoes };
 
     console.log(valor);
+    return valor;
   }
 
-
-
-
-  async presentAlert(camundongo) {
+  async presentAlert(i) {
     const alert = await this.alertCtrl.create({
-     cssClass: 'EditIcon',
-     // mode: 'ios',
+      mode: 'ios',
       buttons: [{
         text: '|',
-        cssClass: 'EditIcon',
         handler: () => {
-          this.setValor(camundongo.i, '|');
+         this.preencherSaudavelQuandoVazio(i);
+         this.setCamundongo(i, '|');
         }
       },
       {
         text: 'D',
         handler: () => {
-          this.setValor(camundongo.i, 'D');
+          this.setCamundongo(i, 'D');
         }
       },
       {
         text: 'M',
         handler: () => {
-          this.setValor(camundongo.i, 'M');
+          this.setCamundongo(i, 'M');
         }
       },
       {
         text: 'P',
         handler: () => {
-          this.setValor(camundongo.i, 'P');
+          this.setCamundongo(i, 'P');
         }
       },
       {
         text: 'E',
         handler: () => {
-          this.setValor(camundongo.i, 'E');
+          this.setCamundongo(i, 'E');
         }
       },
       {
         text: 'Vazio',
         handler: () => {
-          this.setValor(camundongo.i, camundongo.i + 1);
-          this.class2[camundongo.i] = true;
+          this.setCamundongo(i, (i + 1).toString() );
+          this.class2[i] = true;
         }
       }]
     });
@@ -175,9 +171,9 @@ export class DiaObservacaoComponent implements OnInit {
 
     alert.onWillDismiss().then(
         () => {
-            for ( const i in this.class1) {
-              if ( i != null) {
-                this.class1[i] = false;
+            for ( const indx in this.class1) {
+              if ( indx != null) {
+                this.class1[indx] = false;
               }
             }
           }
@@ -187,14 +183,15 @@ export class DiaObservacaoComponent implements OnInit {
     await alert.present();
   }
 
-  panEvent(evt) {
-    console.log(evt.center.y);
+  preencherSaudavelQuandoVazio(i) {
+    if (i > 0 ) {
+      for (let n = 0; n < i; n++) {
+        if ( this.camundongo[n] === (n + 1).toString() ) {
+          this.setCamundongo(n, '|');
+        }
+      }
+    }
   }
-
-  tap(i) {
-    console.log(i);
-  }
-
 
   ngOnInit() {
     this.preencherCampos(this.diaObservacao);

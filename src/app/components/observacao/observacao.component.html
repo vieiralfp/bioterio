@@ -4,9 +4,15 @@
   <div class="div-cabecalho "><b>Data inoculação: </b>{{ observacao?.dataInoculacao | date: 'dd.MM.yy' }}</div>
 </div>
 
-<div class="div-scroll" style="display: block;">
-    <div style="width: 1200px; display: inline-block;">
-      <app-dia-observacao *ngFor="let dia of diaObservacao" [diaObservacao]="dia" style="display: inline-block"></app-dia-observacao>
+<div class="div-numeracao-lateral">
+   <div class="numeracao-lateral"> <span class="span-lateral"> dia </span> </div>
+  <div class="numeracao-lateral" > <span class="span-lateral"> data </span> </div>
+  <div class="numeracao-lateral" *ngFor="let m of n;"> {{ m }} </div>
+</div>
+
+<div class="div-scroll" style="display: block;">    
+    <div style="width: 1220px; display: inline-block;">
+      <app-dia-observacao *ngFor="let dia of diaObservacao" [diaObservacao]="dia" style="display: inline-block; vertical-align: top;"></app-dia-observacao>
   </div>
 </div>
 
