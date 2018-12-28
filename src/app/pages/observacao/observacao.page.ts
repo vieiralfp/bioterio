@@ -1,18 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Inoculacao } from '../../interface/inoculacao';
-import { DiaObservacaoComponent } from '../dia-observacao/dia-observacao.component';
+import { Component, OnInit } from '@angular/core';
 import { DiaObservacao } from 'src/app/interface/dia-observacao';
-import { InoculacaoService } from 'src/app/providers/inoculacao.service';
 import { Login } from 'src/app/interface/login';
+import { Inoculacao } from 'src/app/interface/inoculacao';
+import { InoculacaoService } from 'src/app/providers/inoculacao.service';
 import { Principal } from 'src/app/interface/principal';
-
 
 @Component({
   selector: 'app-observacao',
-  templateUrl: './observacao.component.html',
-  styleUrls: ['./observacao.component.scss']
+  templateUrl: './observacao.page.html',
+  styleUrls: ['./observacao.page.scss'],
 })
-export class ObservacaoComponent implements OnInit {
+export class ObservacaoPage implements OnInit {
 
 
 
@@ -345,18 +343,18 @@ constructor(private inoculacaoService: InoculacaoService) {
     this.inoculacaoService.getInoculacao(2).
     subscribe( (data: Login) => {
       this.login = data;
-      console.log(this.login.nome);
       this.observacao.responsavelInoculacao = this.login;
     });
 
     this.inoculacaoService.getPrincipal(11645).subscribe( (principal: Principal) => {
       this.observacao.principal = principal;
-      console.log(principal);
     },
     (error) => {
       console.log('Falha ao buscar Principal' + error);
     });
     this.iniciar();
   }
+
+
 
 }

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Principal } from '../interface/principal';
 import { environment } from 'src/environments/environment';
 import { Inoculacao } from '../interface/inoculacao';
+import { DiaObservacao } from '../interface/dia-observacao';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,15 @@ export class InoculacaoService {
   salvarInoculacao(inoculacao: Inoculacao): Observable<Inoculacao> {
     return this.http.post<Inoculacao>(environment.endereco + `/inoculacao/`, inoculacao,
     {headers: this.getHeaders()} );
+  }
+
+  editarDiaObservacao(diaObservacao: DiaObservacao): Observable<DiaObservacao> {
+    return this.http.put<DiaObservacao>(environment.endereco + '/observacao/' + diaObservacao.id, diaObservacao);
+  }
+
+  slavarDiaObservacao(diaObservacao: DiaObservacao): Observable<DiaObservacao> {
+    return this.http.post<DiaObservacao>(environment.endereco + '/observacao/' + diaObservacao.id, diaObservacao,
+    {headers: this.getHeaders()});
   }
 
   private getHeaders(): HttpHeaders {

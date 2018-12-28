@@ -1,0 +1,56 @@
+
+<ion-header>
+    <ion-toolbar>
+      <ion-title style="text-align: center">
+          <div style="display: block;">
+              <div class="div-cabecalho "><b>Reg.: </b>{{ observacao?.principal?.registro  }}</div>
+            </div>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <div class="div-numeracao-lateral">
+      <div class="numeracao-lateral"> <span class="span-lateral"> dia </span> </div>
+      <div class="numeracao-lateral" > <span class="span-lateral"> data </span> </div>
+      <div class="numeracao-lateral" *ngFor="let m of n;"> {{ m }} </div>
+    </div>
+  
+    <div class="div-scroll" style="display: block;">    
+        <div style="width: 1220px; display: inline-block;">
+          <app-dia-observacao *ngFor="let dia of diaObservacao" [diaObservacao]="dia" style="display: inline-block; vertical-align: top;"></app-dia-observacao>
+      </div>
+    </div>
+  
+    <div style="display: block;">
+      <div class="div-cabecalho "><b>Data inoculação: </b>{{ observacao?.dataInoculacao | date: 'dd.MM.yy' }}</div>
+      <div class="div-cabecalho "><b>Espécie: </b>{{ observacao?.principal?.especieid?.especie }} </div>
+      <div class="div-cabecalho "><b>Idade Camun.: </b>{{ observacao?.idadeCamundongo }} </div>
+      <div class="div-cabecalho "><b>Qtd Inoc.: </b>{{ observacao?.qtdInoculados }} </div>
+    </div>
+  
+    <div style="display: block">
+      <div style="display: inline-block">
+          <b>Resp. Inoculação: </b>
+      <div style="display: inline-block">
+        <span *ngIf="observacao?.responsavelInoculacao?.nome === null">-</span>
+          {{ observacao?.responsavelInoculacao?.nome }}
+      </div>
+      </div>
+    </div>
+  
+    <div style="display: block">
+      <div style="display: inline-block">
+        <b>Resp. Finalização: </b>
+      <div style="display: inline-block" >
+        <span *ngIf="observacao?.responsavelFinalizacao?.nome === null">Não finalizado</span>
+        {{ observacao?.responsavelFinalizacao?.nome }}
+      </div>
+      </div>
+    </div>
+  
+    <ion-button size="small" (click)="salvarInoculacao()">Salvar</ion-button>
+    <ion-button size="small" (click)="getValor(6)">getValor</ion-button>
+  
+  </ion-content>
+  
