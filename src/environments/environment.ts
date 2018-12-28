@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 export const environment = {
   production: false,
-  endereco: 'http://localhost:8080/bioteriorest/rest'
+  endereco: 'http://localhost:8080/BioterioRest/rest'
 };
 
 /*

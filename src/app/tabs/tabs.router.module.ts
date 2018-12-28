@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
 import { ObservacaoPage } from '../pages/observacao/observacao.page';
 import { AboutPage } from '../about/about.page';
+import { AdicionarInoculacaoPage } from '../pages/adicionar-inoculacao/adicionar-inoculacao.page';
 import { ContactPage } from '../contact/contact.page';
 
 const routes: Routes = [
@@ -24,7 +25,7 @@ const routes: Routes = [
       {
         path: 'about',
         outlet: 'about',
-        component: AboutPage
+        component: AdicionarInoculacaoPage
       },
       {
         path: 'contact',

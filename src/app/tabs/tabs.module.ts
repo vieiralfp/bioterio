@@ -8,8 +8,10 @@ import { TabsPageRoutingModule } from './tabs.router.module';
 
 import { TabsPage } from './tabs.page';
 import { ContactPageModule } from '../contact/contact.module';
+import { AdicionarInoculacaoPageModule } from '../pages/adicionar-inoculacao/adicionar-inoculacao.module';
 import { AboutPageModule } from '../about/about.module';
 import { ObservacaoPageModule } from '../pages/observacao/observacao.module';
+
 
 @NgModule({
   imports: [
@@ -18,6 +20,7 @@ import { ObservacaoPageModule } from '../pages/observacao/observacao.module';
     FormsModule,
     TabsPageRoutingModule,
     ObservacaoPageModule,
+    AdicionarInoculacaoPageModule,
     AboutPageModule,
     ContactPageModule
   ],
