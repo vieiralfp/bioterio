@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { ObservacaoPage } from './observacao.page';
 
 import { DiaObservacaoComponent } from '../../components/dia-observacao/dia-observacao.component';
+import { SearchComponent } from '../../components/search/search.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ObservacaoPage, DiaObservacaoComponent]
+  declarations: [ObservacaoPage, DiaObservacaoComponent, SearchComponent],
+  entryComponents: [SearchComponent]
 })
 export class ObservacaoPageModule {}

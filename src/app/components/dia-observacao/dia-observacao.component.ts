@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DiaObservacao } from '../../interface/dia-observacao';
 import { ActionSheetController } from '@ionic/angular';
+import { InoculacaoService } from 'src/app/providers/inoculacao.service';
 
 @Component({
   selector: 'app-dia-observacao',
@@ -14,7 +15,8 @@ export class DiaObservacaoComponent implements OnInit {
   @Input() diaObservacao: DiaObservacao = <DiaObservacao>{};
 
 
-  constructor(public alertCtrl: ActionSheetController) {
+  constructor(public alertCtrl: ActionSheetController,
+    private inoculacaoService: InoculacaoService) {
 
   }
   public class1 = [];
@@ -117,8 +119,7 @@ export class DiaObservacaoComponent implements OnInit {
                                   perdidos: perdidos,
                                   eutanasias: eutanasias,
                                   dataObservacao: this.diaObservacao.dataObservacao,
-                                  inoculacao: this.diaObservacao.inoculacao,
-                                  observacoes: this.diaObservacao.observacoes };
+                                  inoculacao: this.diaObservacao.inoculacao };
 
     console.log(valor);
     return valor;
@@ -176,6 +177,7 @@ export class DiaObservacaoComponent implements OnInit {
                 this.class1[indx] = false;
               }
             }
+            this.salvarDiaObservacao();
           }
       );
 
@@ -191,6 +193,16 @@ export class DiaObservacaoComponent implements OnInit {
         }
       }
     }
+  }
+
+  salvarDiaObservacao() {
+    this.inoculacaoService.editarDiaObservacao(this.getDiaObservacao()).subscribe((data) => {
+      console.log(data);
+    },
+    (error) => {
+      console.log(error);
+    }
+    );
   }
 
   ngOnInit() {

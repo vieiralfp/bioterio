@@ -1,6 +1,8 @@
 {
   "name": "bioterio",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "01d93551"
 }

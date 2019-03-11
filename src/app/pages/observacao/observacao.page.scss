@@ -31,9 +31,41 @@
     font-size: 8px;
 }
 
+.botao{
+    height: 24px;
+    vertical-align: top;
+    margin: 0px;
+    background-color: rgb(62, 123, 253); 
+    border-radius: 5px;
+    color: aliceblue;
+    margin-left: 2px;
+}
+
+.input{
+    height: 24px;
+    vertical-align: top;
+    margin-left: 2px;
+    max-width: 80px;
+}
+
 $colors: (
     primary: white,
     secondary: yellow
 );
+
+.circulo{
+    
+    border-radius: 50%;
+    display: inline-block;
+    line-height: 16px;
+    height: 16px;
+    width: 16px;
+    margin-bottom: 4px;
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid red;
+    background-color: red;
+    color: white;
+}
 
 

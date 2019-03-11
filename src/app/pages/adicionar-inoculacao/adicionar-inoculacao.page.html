@@ -1,28 +1,86 @@
 <ion-header>
   <ion-toolbar>
       <div>
-          <input type="number" class="input" placeholder="número de registro"/>
-          <input type="number" class="input" placeholder="ano"/>
-          <button class="botao">
-              <ion-icon name="search"></ion-icon>
+          <input #namostra type="number" class="input" placeholder="número de registro"/>
+          <input #ano type="number" class="input" placeholder="ano" [defaultValue]="dataInicial | date: 'yyyy'"/>
+          <button class="botao" (click)="getPrincipalNamostraAno(namostra.value, ano.value)">
+              <ion-icon name="add"></ion-icon>
           </button>
         </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <div class=block>
-    <div class="block">
-      <label class="inline">Nº Reg.: </label>
-      <span class="campos inline">  </span>
-    </div>
-    <div class="block">
-      <label class="inline">Data Inoculação: </label>
-      <ion-input class="campos inline" type="date" pattern="dd/MM/yyyy"></ion-input>
-    </div>
-    <div class="block">
-      <label class="inline">Nº inoculados:</label>
-      <ion-input class="campos inline" ></ion-input>
-    </div>
-  </div>
+  <form #form="ngForm">
+    <ion-list>
+        <ion-item>        
+            <ion-label>
+              <p>N° Registro: </p>
+            </ion-label>
+            <ion-input value="{{inoculacao?.principal?.registro }}" readonly required>  </ion-input>
+        </ion-item>
+
+        <ion-item>        
+            <ion-label>
+              <p>Espécie: </p>
+            </ion-label>
+            <ion-input value="{{inoculacao?.principal?.especieid?.especie }}" readonly required>  </ion-input>
+        </ion-item>
+
+        <ion-item>        
+            <ion-label>
+              <p>Data Inoculação: </p>
+            </ion-label>
+            <ion-input #dtIn="ngModel" name="dtInoc" type="date"  [(ngModel)]="dataInoculacao" required> </ion-input>
+        </ion-item>
+
+        <ion-item>        
+          <ion-label>
+            <p>Qtd. Inoculados: </p>
+          </ion-label>
+          <ion-input #qtdInoc="ngModel" name="qtdInoc" type="number" [(ngModel)]="inoculacao.qtdInoculados" required> {{inoculacao?.qtdInoculados }} </ion-input>
+        </ion-item>
+
+        <ion-item>                
+          <ion-label><p>Idade camundongos: </p></ion-label>
+          <ion-select name="idade"  placeholder="selecionar" [(ngModel)]="inoculacao.idadeCamundongo" required>
+            <ion-select-option [value]="null">selecionar</ion-select-option>
+            <ion-select-option value="21-28 dias">21-28 dias</ion-select-option>
+            <ion-select-option value="01-02 dias">01-02 dias</ion-select-option>
+          </ion-select>      
+        </ion-item>
+
+        <ion-item>                
+          <ion-label><p>Reinoculação?: </p></ion-label>
+          <ion-select name="reinoc" placeholder="selecionar" [(ngModel)]="inoculacao.statusReinoculacao" required>
+            <ion-select-option [value]="null">selecionar</ion-select-option>
+            <ion-select-option value="primeira">Primeira inoculação</ion-select-option>
+            <ion-select-option value="reinoculação cx1">Reinoculação cx1</ion-select-option>
+            <ion-select-option value="reinoculação cx2">Reinoculação cx2</ion-select-option>
+          </ion-select>      
+        </ion-item>
+
+        <ion-item>                
+          <ion-label><p>Resp. Inoculação: </p></ion-label>
+          <ion-select #resp="ngModel" name="respInoc" placeholder="selecionar" [(ngModel)]="inoculacao.responsavelInoculacao" required>
+            <ion-select-option [value]="null">selecionar</ion-select-option>
+            <ion-select-option *ngFor="let item of listaLogin;" [value]="item">{{item.nome}}</ion-select-option>
+          </ion-select>      
+        </ion-item>
+    
+      </ion-list>
+
+      <ion-fab  vertical="bottom" horizontal="end" slot="fixed" >
+          <ion-fab-button name="btnSubmit" color="primary" [disabled]="!form.valid"  (click)="salvarInoculacao()" >
+            <ion-icon name="checkmark"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+    
+        <ion-fab name="btnCancel" vertical="bottom" horizontal="start" slot="fixed" (click)="cancelar()" >
+          <ion-fab-button color="danger">
+            <ion-icon name="close" ></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+    </form>
+    
 </ion-content>

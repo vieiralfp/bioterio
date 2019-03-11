@@ -1,15 +1,27 @@
 
 <ion-header>
     <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-button (click)="ativo = !ativo">
+            <ion-icon name="search"></ion-icon>
+          </ion-button>
+      </ion-buttons>
       <ion-title style="text-align: center">
-          <div style="display: block;">
-              <div class="div-cabecalho "><b>Reg.: </b>{{ observacao?.principal?.registro  }}</div>
-            </div>
+          <span style="margin-right: 4px;"><b>{{ inoculacao?.principal?.registro }}</b></span>
+          <span [ngSwitch]="inoculacao?.statusReinoculacao">
+              <ion-badge *ngSwitchCase="'reinoculação cx1' || 'reinoculação cx2'" style="vertical-align: middle; margin-bottom: 4px;" color="primary">{{ inoculacao?.statusReinoculacao }}</ion-badge>
+              <ion-badge *ngSwitchCase="'reinoculado'" style="vertical-align: middle; margin-bottom: 4px;" color="tertiary">{{ inoculacao?.statusReinoculacao }}</ion-badge>
+          </span>
+          <div class="circulo" [hidden]="inoculacao?.principal?.resultado1?.toLocaleLowerCase() !== 'positivo'" color="danger">
+            <span >+</span>
+          </div>
       </ion-title>
+      
     </ion-toolbar>
   </ion-header>
   
-  <ion-content>
+  <ion-content #conteudo [hidden]="inoculacao == null">
+    <app-search [hidden]="ativo" (output)="carregarInoculacao($event)"></app-search>
     <div class="div-numeracao-lateral">
       <div class="numeracao-lateral"> <span class="span-lateral"> dia </span> </div>
       <div class="numeracao-lateral" > <span class="span-lateral"> data </span> </div>
@@ -22,35 +34,74 @@
       </div>
     </div>
   
-    <div style="display: block;">
-      <div class="div-cabecalho "><b>Data inoculação: </b>{{ observacao?.dataInoculacao | date: 'dd.MM.yy' }}</div>
-      <div class="div-cabecalho "><b>Espécie: </b>{{ observacao?.principal?.especieid?.especie }} </div>
-      <div class="div-cabecalho "><b>Idade Camun.: </b>{{ observacao?.idadeCamundongo }} </div>
-      <div class="div-cabecalho "><b>Qtd Inoc.: </b>{{ observacao?.qtdInoculados }} </div>
-    </div>
   
-    <div style="display: block">
-      <div style="display: inline-block">
-          <b>Resp. Inoculação: </b>
-      <div style="display: inline-block">
-        <span *ngIf="observacao?.responsavelInoculacao?.nome === null">-</span>
-          {{ observacao?.responsavelInoculacao?.nome }}
-      </div>
-      </div>
-    </div>
-  
-    <div style="display: block">
-      <div style="display: inline-block">
-        <b>Resp. Finalização: </b>
-      <div style="display: inline-block" >
-        <span *ngIf="observacao?.responsavelFinalizacao?.nome === null">Não finalizado</span>
-        {{ observacao?.responsavelFinalizacao?.nome }}
-      </div>
-      </div>
-    </div>
-  
-    <ion-button size="small" (click)="salvarInoculacao()">Salvar</ion-button>
-    <ion-button size="small" (click)="getValor(6)">getValor</ion-button>
-  
+      <ion-item>
+        <ion-label>
+          <p>Data Inoculação: </p>
+        </ion-label>
+        <ion-input readonly value="{{ inoculacao?.dataInoculacao | date: 'dd/MM/yyyy' }}"></ion-input>
+      </ion-item>
+      <ion-item >
+        <ion-label position="floating">
+          <p>Resp. Finalização: </p>
+        </ion-label>
+        <ion-select #resp="ngModel" [selectedText]="inoculacao?.responsavelFinalizacao?.nome" name="respInoc" placeholder="selecionar" (ionBlur)="editInoculacao()" [(ngModel)]="inoculacao.responsavelFinalizacao" required>
+          <ion-select-option [value]="null">selecionar</ion-select-option>
+          <ion-select-option *ngFor="let item of listaLogin;" [value]="item" > {{item.nome}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <p>Data Finalização: </p>
+        </ion-label>
+        <ion-input name="dtInoc" type="date" [(ngModel)]="dataFinalizacao" (ionBlur)="editInoculacao()"  required> </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating"><p>Observações</p></ion-label>
+        <ion-textarea (ionBlur)="editInoculacao()" [(ngModel)]="inoculacao.observacoes" style="border: darkgrey solid 1px"></ion-textarea>
+      </ion-item>
+
+    
+      <ion-item>
+        <ion-label>
+          <p>Espécie:</p>
+        </ion-label>
+        <ion-input readonly value="{{ inoculacao?.principal?.especieid?.especie }}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <p>Qtd. Inoculados:</p>
+        </ion-label>
+        <ion-input readonly value="{{ inoculacao?.qtdInoculados }}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <p>Idade Camundongos:</p>
+        </ion-label>
+        <ion-input readonly value="{{ inoculacao?.idadeCamundongo }}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <p>Responsável Inoculacão:</p>
+        </ion-label>
+        <ion-input readonly value="{{ inoculacao?.responsavelInoculacao?.nome }}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <p>Reinoculação?:</p>
+        </ion-label>
+        <ion-select name="reinoc" placeholder="selecionar" [(ngModel)]="inoculacao.statusReinoculacao" (ionBlur)="editInoculacao()" required>
+          <ion-select-option [value]="null">selecionar</ion-select-option>
+          <ion-select-option value="primeira">Primeira inoculação</ion-select-option>
+          <ion-select-option value="reinoculação cx1">Reinoculação cx1</ion-select-option>
+          <ion-select-option value="reinoculação cx2">Reinoculação cx2</ion-select-option>
+          <ion-select-option value="reinoculado">Reinoculado</ion-select-option>
+        </ion-select>
+      </ion-item>
+       
   </ion-content>
   

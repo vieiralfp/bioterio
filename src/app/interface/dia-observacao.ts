@@ -9,6 +9,5 @@ export interface DiaObservacao {
     perdidos: number;
     dataObservacao: number;
     inoculacao: Inoculacao;
-    observacoes: string;
 
 }

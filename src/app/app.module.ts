@@ -9,17 +9,27 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 import 'hammerjs';
+import { SearchComponent } from './components/search/search.component';
+import { DetalhesInoculacaoComponent } from './components/detalhes-inoculacao/detalhes-inoculacao.component';
 
 
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  declarations: [AppComponent, DetalhesInoculacaoComponent],
+  entryComponents: [DetalhesInoculacaoComponent],
+  imports: [BrowserModule,
+    IonicModule.forRoot(),
+     AppRoutingModule,
+      HttpClientModule,
+      FormsModule],
   providers: [
     StatusBar,
     SplashScreen,
+    DatePipe,
+    FormsModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

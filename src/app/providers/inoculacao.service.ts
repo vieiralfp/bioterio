@@ -14,12 +14,12 @@ export class InoculacaoService {
 
   constructor(private http: HttpClient) { }
 
-  getInoculacao(id): Observable<Login> {
-    return this.http.get<Login>(environment.endereco + `/login/${id}` );
+  getInoculacao(id): Observable<Inoculacao> {
+    return this.http.get<Inoculacao>(environment.endereco + `/inoculacao/${id}` );
   }
 
-  getPrincipal(id): Observable<Principal> {
-    return this.http.get<Principal>(environment.endereco + `/principal/${id}`);
+  getListaInoculacao(namostra: number, ano: number): Observable<Inoculacao[]> {
+    return this.http.get<Inoculacao[]>(environment.endereco + `/inoculacao/namostra/${namostra}/${ano}`);
   }
 
   salvarInoculacao(inoculacao: Inoculacao): Observable<Inoculacao> {
@@ -27,13 +27,22 @@ export class InoculacaoService {
     {headers: this.getHeaders()} );
   }
 
+  editarInoculacao(inoculacao: Inoculacao): Observable<Inoculacao> {
+    return this.http.put<Inoculacao>(environment.endereco + '/inoculacao/' + inoculacao.id, inoculacao);
+  }
+
   editarDiaObservacao(diaObservacao: DiaObservacao): Observable<DiaObservacao> {
     return this.http.put<DiaObservacao>(environment.endereco + '/observacao/' + diaObservacao.id, diaObservacao);
   }
 
-  slavarDiaObservacao(diaObservacao: DiaObservacao): Observable<DiaObservacao> {
-    return this.http.post<DiaObservacao>(environment.endereco + '/observacao/' + diaObservacao.id, diaObservacao,
+  salvarDiaObservacao(diaObservacao: DiaObservacao): Observable<DiaObservacao> {
+    return this.http.post<DiaObservacao>(environment.endereco + '/observacao/' , diaObservacao,
     {headers: this.getHeaders()});
+  }
+
+  listaDiaObservaoPorInoculacao(inoculacaoID: number): Observable<DiaObservacao[]> {
+    return this.http.get<DiaObservacao[]>(environment.endereco +
+       `/observacao/listaobservacaoporinoculacao/${inoculacaoID}`);
   }
 
   private getHeaders(): HttpHeaders {

@@ -34,7 +34,11 @@ label{
     margin-bottom: 4px; 
 }
 
-.inline{
-    
+.inline{    
     float: left;
 }
+$colors: (
+    primary: white,
+    secondary: yellow
+);
+$fab-list-button-background-color: color($colors, dark);
