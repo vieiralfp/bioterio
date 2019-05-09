@@ -1,14 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DiaObservacao } from '../../interface/dia-observacao';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, ToastController } from '@ionic/angular';
 import { InoculacaoService } from 'src/app/providers/inoculacao.service';
+import { ToastComponent } from '../toast/toast.component';
 
 @Component({
   selector: 'app-dia-observacao',
   templateUrl: './dia-observacao.component.html',
   styleUrls: ['./dia-observacao.component.scss']
 })
-export class DiaObservacaoComponent implements OnInit {
+export class DiaObservacaoComponent extends ToastComponent implements OnInit {
 
 
 
@@ -16,7 +17,9 @@ export class DiaObservacaoComponent implements OnInit {
 
 
   constructor(public alertCtrl: ActionSheetController,
-    private inoculacaoService: InoculacaoService) {
+    private inoculacaoService: InoculacaoService,
+    public toastController: ToastController) {
+      super(toastController);
 
   }
   public class1 = [];
@@ -198,6 +201,7 @@ export class DiaObservacaoComponent implements OnInit {
   salvarDiaObservacao() {
     this.inoculacaoService.editarDiaObservacao(this.getDiaObservacao()).subscribe((data) => {
       console.log(data);
+      this.presentToast();
     },
     (error) => {
       console.log(error);
@@ -207,6 +211,10 @@ export class DiaObservacaoComponent implements OnInit {
 
   ngOnInit() {
     this.preencherCampos(this.diaObservacao);
+  }
+
+  async presentToast() {
+    this.presentToastColor('Dados salvos com sucesso', 'success');
   }
 
 }

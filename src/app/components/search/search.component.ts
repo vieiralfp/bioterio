@@ -1,4 +1,7 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { IonicModule, Events } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { InoculacaoService } from 'src/app/providers/inoculacao.service';
 
 @Component({
   selector: 'app-search',
@@ -8,24 +11,39 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 export class SearchComponent implements OnInit {
 
 
-  constructor() { }
+  constructor(public events: Events,
+              private router: Router,
+              private inoculacaoService: InoculacaoService) {}
 
   public anoInicial = new Date();
 
-  @Input() public input = {numero: null, ano: null};
-  @Output() output: EventEmitter<object> = new EventEmitter();
+  public input = {local: null, numero: null, ano: new Date().getFullYear()};
+
 
     onSubmit() {
-      this.output.emit(this.input);
-      console.log(this.input);
+
+      switch (this.input.local) {
+        case 'infectorio': {
+          this.inoculacaoService.carregarInoculacaoPorDataAno(this.input.numero, this.input.ano);
+          break;
+        }
+        case 'nucleo': {
+          this.router.navigateByUrl('adicionar-inoculacao');
+          break;
+        }
+        default: {
+          this.router.navigateByUrl('observacao');
+        }
+      }
     }
 
-    onChange(valor) {
-      this.input.ano = valor;
+    atualizaLocal() {
+      this.inoculacaoService.local = this.input.local;
+      console.log(this.input.local);
     }
 
     ngOnInit(): void {
-     // this.input.ano = new Date().getFullYear();
+      this.input.local = this.inoculacaoService.local;
     }
 
 }

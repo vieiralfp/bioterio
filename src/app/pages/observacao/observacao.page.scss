@@ -61,11 +61,17 @@ $colors: (
     height: 16px;
     width: 16px;
     margin-bottom: 4px;
-    vertical-align: middle;
+   // vertical-align: middle;
     text-align: center;
     border: 1px solid red;
     background-color: red;
     color: white;
+}
+
+.badge_informativo {
+    vertical-align: middle;
+    margin-bottom: 4px;
+    margin-right: 4px;
 }
 
 

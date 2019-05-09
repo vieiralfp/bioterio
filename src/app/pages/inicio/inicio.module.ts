@@ -5,15 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ObservacaoPage } from './observacao.page';
-
-import { DiaObservacaoComponent } from '../../components/dia-observacao/dia-observacao.component';
- import { SearchModule } from '../../components/search/search.module';
+import { InicioPage } from './inicio.page';
+import { SearchModule } from 'src/app/components/search/search.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: ObservacaoPage
+    component: InicioPage
   }
 ];
 
@@ -25,10 +23,6 @@ const routes: Routes = [
     SearchModule,
     RouterModule.forChild(routes)
   ],
-  exports: [
-    ObservacaoPage
-  ],
-  declarations: [ObservacaoPage, DiaObservacaoComponent],
-  entryComponents: [DiaObservacaoComponent]
+  declarations: [InicioPage]
 })
-export class ObservacaoPageModule {}
+export class InicioPageModule {}
