@@ -1,0 +1,47 @@
+.dia-observacao{
+    width: 40px; 
+    height: 20px;;
+    border: solid 1px black; 
+    border-top: 0px;
+    border-left: 0px;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    
+}
+
+.dia-observacao-header{
+    border-top: solid 1px black; 
+    font-weight: bold;
+}
+
+
+.background1{
+    background-color: yellow;
+    
+}
+
+.background2{
+    color: rgba($color:gray, $alpha: 0.3);
+}
+
+
+.EditIcon {
+    ion-icon{
+        color: red;
+    }
+ }
+
+
+
+.circulo{
+    
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 18px;
+    width: 20px;
+    border: 1px solid red;
+    background-color: transparent;
+}

@@ -1,0 +1,18 @@
+<form #f="ngForm" (ngSubmit)="onSubmit()">
+    <div padding style="display: block;">
+        <div>
+            <ion-select name="local" placeholder="local" interface="popover" [(ngModel)]="input.local" (ionChange)="atualizaLocal()" required>
+                <ion-select-option [value]="null">local</ion-select-option>
+                <ion-select-option value="infectorio">Infectório</ion-select-option>
+                <ion-select-option value="nucleo">Núcleo</ion-select-option>
+                <ion-select-option value="producao">Produção</ion-select-option>
+            </ion-select>
+        </div>
+        <input #namostra name="numero" type="number" class="input" placeholder="nº registro"
+            [(ngModel)]="input.numero" />
+        <input #ano name="ano" type="number" class="input" placeholder="ano" [(ngModel)]="input.ano" />
+        <button class="botao" type="submit">
+            <ion-icon name="search"></ion-icon>
+        </button> 
+    </div>
+</form>

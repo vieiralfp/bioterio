@@ -6,17 +6,58 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import 'hammerjs';
+import { SearchModule } from './components/search/search.module';
+import { DetalhesInoculacaoComponent } from './components/detalhes-inoculacao/detalhes-inoculacao.component';
+import { MenuPrincipalComponent } from './components/menu-principal/menu-principal.component';
+import { ObservacaoPageModule } from './pages/observacao/observacao.module';
+import { ListaObservacaoPageModule } from './pages/lista-observacao/lista-observacao.module';
+import { AdicionarInoculacaoPageModule } from './pages/adicionar-inoculacao/adicionar-inoculacao.module';
+import { InoculacaoResolveService } from './resolve/inoculacao-resolve.service';
+import { InicioPageModule } from './pages/inicio/inicio.module';
+import { ToastComponent } from './components/toast/toast.component';
+import { LoginPageModule } from './pages/login/login.module';
+import { TokenApiService } from './interceptadores/token-api.service';
+import { InvalidTokenApiService } from './interceptadores/invalid-token.service';
+
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  declarations: [AppComponent, DetalhesInoculacaoComponent, MenuPrincipalComponent, ToastComponent],
+  entryComponents: [DetalhesInoculacaoComponent, MenuPrincipalComponent],
+  imports: [BrowserModule,
+    IonicModule.forRoot(),
+     AppRoutingModule,
+      HttpClientModule,
+      FormsModule,
+      SearchModule,
+      InicioPageModule,
+      ObservacaoPageModule,
+      LoginPageModule,
+      ListaObservacaoPageModule,
+      AdicionarInoculacaoPageModule
+    ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    DatePipe,
+    FormsModule,
+    InoculacaoResolveService,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenApiService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InvalidTokenApiService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

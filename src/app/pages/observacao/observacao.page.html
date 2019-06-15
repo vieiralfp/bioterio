@@ -1,0 +1,110 @@
+
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>          
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button (click)="presentMenu()">
+          <ion-icon name="more"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title style="text-align: center">
+          <span style="margin-right: 4px; margin-left: 4px;"><b>{{ inoculacao?.principal?.registro }}</b></span>
+          <span [ngSwitch]="inoculacao?.statusReinoculacao">
+              <ion-badge *ngSwitchCase="'reinoculação cx1'" class="badge_informativo" color="primary">{{ inoculacao?.statusReinoculacao }}</ion-badge>
+              <ion-badge *ngSwitchCase="'reinoculação cx2'" class="badge_informativo" color="primary">{{ inoculacao?.statusReinoculacao }}</ion-badge>
+              <ion-badge *ngSwitchCase="'reinoculado'" class="badge_informativo" color="tertiary">{{ inoculacao?.statusReinoculacao }}</ion-badge>
+          </span>
+          <div class="circulo" [hidden]="inoculacao?.principal?.resultado1?.toLocaleLowerCase() !== 'positivo'" color="danger">
+            <span >+</span>
+          </div>
+          <div><span style="font-size: 12px; padding: 0px;"> {{inoculacao?.dataInoculacao | date: 'dd/MM/yyyy'}} </span></div>
+      </ion-title>
+      
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content id="conteudo" >
+    <div class="div-numeracao-lateral">
+      <div class="numeracao-lateral"> <span class="span-lateral"> dia </span> </div>
+      <div class="numeracao-lateral" > <span class="span-lateral"> data </span> </div>
+      <div class="numeracao-lateral" *ngFor="let m of n;"> {{ m }} </div>
+    </div>
+    <div class="div-scroll" style="display: block;">    
+        <div style="width: 1220px; display: inline-block;">
+          <app-dia-observacao *ngFor="let dia of diaObservacao" [diaObservacao]="dia" style="display: inline-block; vertical-align: top;"></app-dia-observacao>
+      </div>
+    </div>
+  
+    <ion-item>
+      <ion-label position="floating"><p>Observações</p></ion-label>
+      <ion-textarea (ionChange)="editInoculacao()" debounce="1000" [(ngModel)]="inoculacao.observacoes" style="border: darkgrey solid 1px"></ion-textarea>
+    </ion-item>
+
+    <ion-item >
+      <ion-label position="floating">
+        <p>Resp. Finalização: </p>
+      </ion-label>
+      <ion-select #resp="ngModel" [selectedText]="inoculacao?.responsavelFinalizacao?.nome" name="respInoc" placeholder="selecionar" (ionChange)="editInoculacao()" [(ngModel)]="inoculacao.responsavelFinalizacao" required>
+        <ion-select-option [value]="null">selecionar</ion-select-option>
+        <ion-select-option *ngFor="let item of listaLogin;" [value]="item" > {{item.nome}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <p>Data Finalização: </p>
+      </ion-label>
+      <ion-input name="dtInoc" type="date" [(ngModel)]="dataFinalizacao" (ionChange)="editInoculacao()"  required> </ion-input>
+    </ion-item>
+
+          
+    <div style="border: rgb(124, 124, 124) solid 1px;">
+      <ion-item>
+        <ion-label>
+          <p>Espécie:</p>
+        </ion-label>
+        <ion-input readonly value="{{ inoculacao?.principal?.especieid?.especie }}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <p>Qtd. Inoculados:</p>
+        </ion-label>
+        <ion-input readonly value="{{ inoculacao?.qtdInoculados }}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <p>Idade Camundongos:</p>
+        </ion-label>
+        <ion-input readonly value="{{ inoculacao?.idadeCamundongo }}"></ion-input>
+      </ion-item>
+
+      <ion-item>                
+        <ion-label position="floating"><p>Responsável Inoculação: </p></ion-label>
+        <ion-select #resp="ngModel" name="respInoc" [selectedText]="inoculacao?.responsavelInoculacao?.nome" placeholder="selecionar" [(ngModel)]="inoculacao.responsavelInoculacao" (ionChange)="editInoculacao()" required>
+          <ion-select-option [value]="null">selecionar</ion-select-option>
+          <ion-select-option *ngFor="let item of listaLogin;" [value]="item">{{item.nome}}</ion-select-option>
+        </ion-select>      
+      </ion-item>
+
+      <ion-item>
+          <ion-label position="floating">
+            <p>Reinoculação?:</p>
+          </ion-label>
+          <ion-select name="reinoc" interface="popover" placeholder="selecionar" [(ngModel)]="inoculacao.statusReinoculacao" (ionChange)="editInoculacao()" required>
+            <ion-select-option [value]="null">selecionar</ion-select-option>
+            <ion-select-option value="primeira">Primeira inoculação</ion-select-option>
+            <ion-select-option value="reinoculação cx1">Reinoculação cx1</ion-select-option>
+            <ion-select-option value="reinoculação cx2">Reinoculação cx2</ion-select-option>
+            <ion-select-option value="reinoculado">Reinoculado</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+
+    </div>
+  </ion-content>
+ 
+  

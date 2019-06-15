@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>          
+      </ion-buttons>
+    <ion-title>Escolher Caixa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <div style="border: 1px solid black; border-radius: 10px; padding: 5px; margin: 5px" *ngFor="let i of inoculacaoList" (click)="carregarObservacao(i)">
+      <div>
+        <b>Registro: </b>{{i.principal?.registro}}
+      </div>
+      <div>
+        <b>Data Inoculação: </b>{{i.dataInoculacao | date: 'dd/MM/yyyy'}}
+      </div>
+      <div>
+        <b>Reinoculação: </b>{{i.statusReinoculacao}}
+      </div>
+    </div>
+  </ion-list>
+
+</ion-content>

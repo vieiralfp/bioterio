@@ -1,0 +1,14 @@
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>{{titulo}}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item *ngFor="let item of itens; let i = index;"> 
+          <ion-label text-wrap><p>{{ item?.label }}</p></ion-label>
+          <ion-label text-wrap> {{item?.valor }} </ion-label>
+        </ion-item>
+      </ion-list>
+      
+    </ion-content>

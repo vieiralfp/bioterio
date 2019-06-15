@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Acessar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form #form="ngForm" (ngSubmit)="submit()">
+    <ion-list>
+      <ion-item>
+        <ion-input [(ngModel)]="login" name="login" type="text" placeholder="login" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="senha" name="senha" type="password" placeholder="senha" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-button [type]="submit" [disabled]="!form.valid">
+            Entrar
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+          <ion-buttons slot="start">
+              <ion-menu-button></ion-menu-button>          
+          </ion-buttons>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card style="width: calc(50% - 15px); min-width: 130px; float: left;">
+    <ion-card-header>
+      <ion-card-title style="font-size: 14px; text-align: center">
+        Hoje
+      </ion-card-title>
+  </ion-card-header>
+    <ion-card-content style="font-size: 18px; text-align: center">
+      <span>{{ agora | date: 'dd/MM/yyyy' }}</span>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card style="width: calc(50% - 15px); min-width: 130px;">
+      <ion-card-header>
+        <ion-card-title style="font-size: 14px; text-align: center">
+          Hoje + 21 dias
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content style="font-size: 18px; text-align: center">
+        <span>{{ agora21 | date: 'dd/MM/yyyy' }}</span>
+      </ion-card-content>
+    </ion-card>
+    
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          Pesquisar
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+          <app-search></app-search>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button (click)="teste()">teste</ion-button>
+  
+</ion-content>
