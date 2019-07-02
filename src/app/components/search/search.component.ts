@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule, Events } from '@ionic/angular';
+import { Events } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CaixaService } from 'src/app/services/caixa.service';
 

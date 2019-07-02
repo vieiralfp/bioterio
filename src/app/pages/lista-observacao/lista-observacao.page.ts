@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { CaixaService } from 'src/app/services/caixa.service';
 import { Caixa } from 'src/app/interface/caixa';
 

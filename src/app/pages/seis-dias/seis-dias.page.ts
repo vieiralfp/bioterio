@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { CaixaService } from 'src/app/services/caixa.service';
-import { Caixa } from 'src/app/interface/caixa';
 
 @Component({
   selector: 'app-seis-dias',
