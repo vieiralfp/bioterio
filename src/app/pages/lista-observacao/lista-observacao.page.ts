@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Inoculacao } from 'src/app/interface/inoculacao';
 import { ActivatedRoute } from '@angular/router';
-import { InoculacaoService } from 'src/app/services/inoculacao.service';
+import { CaixaService } from 'src/app/services/caixa.service';
+import { Caixa } from 'src/app/interface/caixa';
 
 @Component({
   selector: 'app-lista-observacao',
@@ -10,25 +10,19 @@ import { InoculacaoService } from 'src/app/services/inoculacao.service';
 })
 export class ListaObservacaoPage implements OnInit {
 
-  constructor(private inoculacaoService: InoculacaoService,
-              private route: ActivatedRoute) { }
+  constructor(private caixaService: CaixaService) { }
 
-  public inoculacaoList: Inoculacao[];
+  public caixaList: Caixa[];
 
-  public carregarObservacao(input) {
-    this.inoculacaoService.carregarInoculacaoPorID(input.id);
+  public carregarObservacao(caixa: Caixa) {
+    this.caixaService.carregarInoculacaoPorCaixa(caixa);
   }
 
 
   ngOnInit() {
-
-    const data = this.route.snapshot.data.routeListInoculacaoResolve;
-    console.log(data);
-    if (data != null) {
-      this.inoculacaoList = data;
-      console.log('aqui', this.inoculacaoList);
-      this.inoculacaoService.setListInoculacaoResolve(null);
-    }
+    this.caixaService.caixas$.subscribe((caixas) => {
+      this.caixaList = caixas;
+    });
   }
 
 }

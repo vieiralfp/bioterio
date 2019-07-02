@@ -10,36 +10,45 @@
 <ion-content padding>
 <ion-item>
   <ion-label>Data</ion-label>
-  <ion-input #data type="date"></ion-input>
-  <ion-button (click)="listarSeisDias(data.value)">
-      <ion-icon name="search"></ion-icon>
+  <ion-input #data type="date" [(ngModel)]="dataPesquisa"></ion-input>
+  <ion-button (click)="listarSeisDias()">
+      <ion-icon name="refresh"></ion-icon>
   </ion-button>
 </ion-item>
 
 <ion-card>
   <ion-card-header>
-    <ion-card-title>Eutanásias Seis Dias ({{listaSeisDias?.length}})</ion-card-title>
+    <ion-item>
+        <ion-card-title style="margin-right: 5px">Eutanásias Seis Dias</ion-card-title>
+        <ion-badge mode="ios" color="secondary" class="badges">{{listaSeisDias?.length}}</ion-badge>
+    </ion-item>    
   </ion-card-header>
   <ion-card-content>
-    <div class="caixas" *ngFor="let item1 of listaSeisDias" (click)="carregarObservacao(item1)">{{ item1?.principal?.registro }} </div>
+    <div class="caixas" *ngFor="let item1 of listaSeisDias" (click)="carregarInoculacaoPorId(item1[0])">{{ item1[1] }} </div>
   </ion-card-content>
 </ion-card>
 
 <ion-card>
   <ion-card-header>
-    <ion-card-title>Eutanásias Finalização ({{listaFinalizacoes?.length}})</ion-card-title>
+    <ion-item>
+        <ion-card-title style="margin-right: 5px">Eutanásias Finalização</ion-card-title>
+        <ion-badge mode="ios" color="secondary" class="badges">{{listaFinalizacoes?.length}}</ion-badge>
+    </ion-item>
   </ion-card-header>
   <ion-card-content>
-    <ion-label class="caixas" *ngFor="let item2 of listaFinalizacoes" (click)="carregarObservacao(item2)">{{ item2?.principal?.registro }} </ion-label>
+    <ion-label class="caixas" *ngFor="let item2 of listaFinalizacoes" (click)="carregarInoculacaoPorId(item2[0])">{{ item2[1] }} </ion-label>
   </ion-card-content>
 </ion-card>
 
 <ion-card>
     <ion-card-header>
-      <ion-card-title>Em Observação ({{listaNaoFinalizada?.length}})</ion-card-title>
+      <ion-item>
+          <ion-card-title style="margin-right: 5px">Em Observação</ion-card-title>
+          <ion-badge mode="ios" color="secondary" class="badges">{{listaNaoFinalizada?.length}}</ion-badge>
+      </ion-item>      
     </ion-card-header>
     <ion-card-content>
-      <ion-label class="caixas" *ngFor="let item3 of listaNaoFinalizada" (click)="carregarObservacao(item3)">{{ item3?.principal?.registro }} </ion-label>
+      <ion-label class="caixas" *ngFor="let item3 of listaNaoFinalizada" (click)="carregarInoculacaoPorId(item3[0])">{{ item3[1] }} </ion-label>
     </ion-card-content>
 </ion-card>
   

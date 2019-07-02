@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DiaObservacao } from 'src/app/interface/dia-observacao';
 
-import { Inoculacao } from 'src/app/interface/inoculacao';
-import { InoculacaoService } from 'src/app/services/inoculacao.service';
-import { ActionSheetController, PopoverController, ToastController, Events, MenuController } from '@ionic/angular';
+import { ActionSheetController, PopoverController, ToastController, Events, MenuController, LoadingController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
 import { Login } from 'src/app/interface/login';
 import { LoginService } from 'src/app/services/login.service';
@@ -11,6 +9,9 @@ import { Router, ActivatedRoute, Data, NavigationEnd } from '@angular/router';
 import { ToastComponent } from 'src/app/components/toast/toast.component';
 import { fromEvent, Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Caixa } from 'src/app/interface/caixa';
+import { CaixaService } from 'src/app/services/caixa.service';
 
 
 @Component({
@@ -20,13 +21,13 @@ import { map } from 'rxjs/operators';
 })
 export class ObservacaoPage extends ToastComponent implements OnInit {
 
-  constructor(private inoculacaoService: InoculacaoService,
+  constructor(private caixaService: CaixaService,
               public datePipe: DatePipe,
               private loginService: LoginService,
               public toastController: ToastController,
               public alertCtrl: ActionSheetController,
-              private route: ActivatedRoute,
-              private router: Router
+              private router: Router,
+              private loadingController: LoadingController
     ) {
       super(toastController);
     }
@@ -34,7 +35,7 @@ export class ObservacaoPage extends ToastComponent implements OnInit {
 
 
   public anoInicial = new Date();
-  public inoculacao: Inoculacao = this.inoculacaoService.newInoculacao;
+  public caixa: Caixa = this.caixaService.newCaixa;
   public diaObservacao: DiaObservacao[];
   public listaLogin: Login[] = [];
 
@@ -68,7 +69,7 @@ export class ObservacaoPage extends ToastComponent implements OnInit {
         {
         text: 'Criar ficha de observação',
         handler: () => {
-         this.inoculacaoService.irPara('adicionar-inoculacao');
+         this.caixaService.irPara('adicionar-inoculacao');
         }
       },
       {
@@ -89,15 +90,20 @@ export class ObservacaoPage extends ToastComponent implements OnInit {
   }
 
   public deletar() {
-    if (this.inoculacao != null) {
-      this.inoculacaoService.deletarInoculacao(this.inoculacao.id).subscribe(
+    if (this.caixa != null) {
+      this.caixaService.deletarInoculacao(this.caixa.id).subscribe(
         () => {
           this.presentToastColor('Registro deletado', 'success');
-          this.inoculacao = this.inoculacaoService.newInoculacao;
+          this.caixa = null;
           this.diaObservacao = [];
+          this.router.navigate(['inicio']);
         },
-        (error) => {
-          this.presentToastColor(error, 'danger');
+        (error: HttpErrorResponse) => {
+          if (error.status === 403) {
+          this.presentToastColorDuracao(error.error.erro, 'danger', 3000);
+          } else {
+            this.presentToastColorDuracao('Erro desconhecido', 'danger', 3000);
+          }
         }
       );
     }
@@ -105,10 +111,10 @@ export class ObservacaoPage extends ToastComponent implements OnInit {
 
   editInoculacao() {
 
-    if (this.inoculacao != null && this.inoculacao.id != null && this.id === this.inoculacao.id) {
-      this.inoculacao.dataFinalizacao = Date.parse(this.dataFinalizacao) + this.gtm3;
+    if (this.caixa != null && this.caixa.id != null && this.id === this.caixa.id) {
+      this.caixa.dataFinalizacao = Date.parse(this.dataFinalizacao) + this.gtm3;
 
-      this.inoculacaoService.editarInoculacao(this.inoculacao).subscribe(
+      this.caixaService.editarInoculacao(this.caixa).subscribe(
         () => {
         this.presentToastColor('Dados salvos com sucesso', 'success');
        },
@@ -139,16 +145,14 @@ export class ObservacaoPage extends ToastComponent implements OnInit {
 
  proximaCaixa() {
 
-    if (this.inoculacao.id != null ) {
+    if (this.caixa.id != null ) {
 
-      this.inoculacaoService.nextInoculacao(this.inoculacao.id).subscribe((data) => {
+      this.caixaService.nextInoculacao(this.caixa.id).subscribe((data) => {
 
         if (data != null ) {
-          this.inoculacaoService.listaDiaObservaoPorInoculacao(data.id).subscribe((data2) => {
-            this.inoculacao = data;
-            this.diaObservacao = data2;
-            this.setId(this.inoculacao.id);
-          });
+            this.caixa = data;
+            this.diaObservacao = data.observacaocamundongolist;
+            this.setId(this.caixa.id);
         }
 
       },
@@ -161,16 +165,14 @@ export class ObservacaoPage extends ToastComponent implements OnInit {
 
   previousCaixa() {
 
-    if (this.inoculacao.id != null ) {
+    if (this.caixa.id != null ) {
 
-      this.inoculacaoService.previousInoculacao(this.inoculacao.id).subscribe((data) => {
+      this.caixaService.previousInoculacao(this.caixa.id).subscribe((data) => {
 
         if (data != null ) {
-          this.inoculacaoService.listaDiaObservaoPorInoculacao(data.id).subscribe((data2) => {
-            this.inoculacao = data;
-            this.diaObservacao = data2;
-            this.setId(this.inoculacao.id);
-          });
+            this.caixa = data;
+            this.diaObservacao = data.observacaocamundongolist;
+            this.setId(this.caixa.id);
         }
 
       },
@@ -181,30 +183,32 @@ export class ObservacaoPage extends ToastComponent implements OnInit {
     }
   }
 
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Carregando',
+      duration: 0
+    });
+    await loading.present().then(() => {
+        this.setListaLogin();
+        this.caixaService.caixa$.subscribe((cx) => {
+        if (cx != null) {
+          this.caixa = cx;
+          this.diaObservacao = cx.observacaocamundongolist;
+          this.setId(this.caixa.id);
+        } else {
+          this.router.navigate(['inicio']);
+        }
+        loading.dismiss();
+      });
+    });
+
+    const { role, data } = await loading.onDidDismiss();
+
+    console.log('Loading dismissed!');
+  }
+
   ngOnInit(): void {
-    this.setListaLogin();
-
-    this.inoculacaoService.inoculacao$.subscribe((inoc) => {
-      if (inoc != null) {
-        this.inoculacao = inoc;
-        this.setId(this.inoculacao.id);
-      }
-    });
-    this.inoculacaoService.diainoculacao$.subscribe((dia) => {
-      if (dia != null) {
-        this.diaObservacao = dia;
-      }
-    });
-
-/*
-    const data = this.route.snapshot.data.inoculacaoResolve;
-    if (data != null && data.inoculacao != null && data.inoculacao.id != null) {
-      this.inoculacao = data.inoculacao;
-      this.diaObservacao = data.diaObservacao;
-      this.setId(this.inoculacao.id);
-    //  this.inoculacaoService.setInoculacaoResolve(null, null);
-    }
-*/
+    this.presentLoading();
   }
 
   }

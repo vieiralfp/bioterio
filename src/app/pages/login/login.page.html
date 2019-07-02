@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Acessar</ion-title>
+    <ion-title>Biotério IDAF</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -17,7 +17,13 @@
         <ion-button [type]="submit" [disabled]="!form.valid">
             Entrar
         </ion-button>
+        <ion-buttons slot="end">
+          <ion-button [routerLink]="['/configuracoes']">
+              <ion-icon name="settings"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </ion-item>
     </ion-list>
   </form>
+  <img src="assets/icon/camundongo.svg" style="width: 100%"/>
 </ion-content>

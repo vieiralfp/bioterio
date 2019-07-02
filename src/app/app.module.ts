@@ -17,13 +17,13 @@ import { DetalhesInoculacaoComponent } from './components/detalhes-inoculacao/de
 import { MenuPrincipalComponent } from './components/menu-principal/menu-principal.component';
 import { ObservacaoPageModule } from './pages/observacao/observacao.module';
 import { ListaObservacaoPageModule } from './pages/lista-observacao/lista-observacao.module';
-import { AdicionarInoculacaoPageModule } from './pages/adicionar-inoculacao/adicionar-inoculacao.module';
-import { InoculacaoResolveService } from './resolve/inoculacao-resolve.service';
 import { InicioPageModule } from './pages/inicio/inicio.module';
 import { ToastComponent } from './components/toast/toast.component';
 import { LoginPageModule } from './pages/login/login.module';
+import { ConfiguracoesPageModule } from './pages/configuracoes/configuracoes.module';
 import { TokenApiService } from './interceptadores/token-api.service';
 import { InvalidTokenApiService } from './interceptadores/invalid-token.service';
+import { RefreshTokenService } from './interceptadores/refresh-token.service';
 
 
 @NgModule({
@@ -39,15 +39,19 @@ import { InvalidTokenApiService } from './interceptadores/invalid-token.service'
       ObservacaoPageModule,
       LoginPageModule,
       ListaObservacaoPageModule,
-      AdicionarInoculacaoPageModule
+      ConfiguracoesPageModule
     ],
   providers: [
     StatusBar,
     SplashScreen,
     DatePipe,
     FormsModule,
-    InoculacaoResolveService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RefreshTokenService,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenApiService,

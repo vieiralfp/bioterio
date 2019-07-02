@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { InoculacaoService } from 'src/app/services/inoculacao.service';
-import { ArgumentOutOfRangeError } from 'rxjs';
+import { CaixaService } from 'src/app/services/caixa.service';
 
 @Component({
   selector: 'app-inicio',
@@ -11,35 +10,10 @@ import { ArgumentOutOfRangeError } from 'rxjs';
 export class InicioPage implements OnInit {
 
   constructor(private router: Router,
-              private inoculacaoService: InoculacaoService) { }
+              private caixaService: CaixaService) { }
 
     public agora: Date;
     public agora21;
-
-  @Input() public input = { local: null, numero: null, ano: null };
-
-
-  onEvent(event) {
-    const local = event.local;
-    switch (local) {
-      case 'infectorio': {
-        this.inoculacaoService.carregarInoculacaoPorDataAno(event.numero, event.ano);
-        break;
-      }
-      case 'nucleo': {
-        this.router.navigateByUrl('adicionar-inoculacao');
-        break;
-      }
-      default: {
-        this.router.navigateByUrl('observacao');
-      }
-    }
-
-  }
-
-  teste() {
-    this.router.navigate(['/login']);
-  }
 
   ngOnInit() {
     this.agora = new Date();

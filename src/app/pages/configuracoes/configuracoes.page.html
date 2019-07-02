@@ -1,9 +1,49 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>configuracoes</ion-title>
+    <ion-title>Configurações Alternativas da API</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item>
+        <ion-label>
+          <p>Usar Configuração Alternativa</p>
+        </ion-label>
+        <ion-toggle  [(ngModel)]="usarConfig"></ion-toggle>
+      </ion-item>
+    <ion-item>
+      <ion-label>
+        <p>Protocolo http/https</p>
+      </ion-label>
+      <ion-input [disabled]="!usarConfig" [(ngModel)]="protocolo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <p>IP do Servidor</p>
+      </ion-label>
+      <ion-input [disabled]="!usarConfig" [(ngModel)]="ipServidor"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <p>Porta</p>
+      </ion-label>
+      <ion-input [disabled]="!usarConfig" [(ngModel)]="porta"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <p>URL da API</p>
+      </ion-label>
+      <ion-input [disabled]="!usarConfig" [(ngModel)]="urlApi"></ion-input>
+    </ion-item>
+    <ion-item-divider></ion-item-divider>
+    <ion-item>
+      <ion-label>{{protocolo}}://{{ipServidor}}:{{porta}}/{{urlApi}}</ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-button (click)="setServidor()">Salvar Configurações</ion-button>
+  <div>
+      <a [routerLink]="['/login']">Ir para Login</a>
+  </div>
+  
 </ion-content>

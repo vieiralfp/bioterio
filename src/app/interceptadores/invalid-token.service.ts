@@ -21,9 +21,8 @@ export class InvalidTokenApiService implements HttpInterceptor {
       catchError((errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 401) {
           this.authService.redirectUrl = this.router.url;
-          this.authService.resetarSessao();
+          this.authService.apagarToken();
           this.router.navigate(['login']);
-
         }
         return throwError(errorResponse);
       })

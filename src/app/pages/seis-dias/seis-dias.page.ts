@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Inoculacao } from 'src/app/interface/inoculacao';
-import { InoculacaoService } from 'src/app/services/inoculacao.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { CaixaService } from 'src/app/services/caixa.service';
+import { Caixa } from 'src/app/interface/caixa';
 
 @Component({
   selector: 'app-seis-dias',
@@ -10,30 +10,37 @@ import { DatePipe } from '@angular/common';
 })
 export class SeisDiasPage implements OnInit {
 
-  constructor(private inoculacaoService: InoculacaoService,
-              public datePipe: DatePipe) { }
+  constructor(public datePipe: DatePipe,
+              private caixaService: CaixaService) { }
 
-  public listaNaoFinalizada: Inoculacao[];
-  public listaSeisDias: Inoculacao[];
-  public listaFinalizacoes: Inoculacao[];
-  private anoAtual = new Date().getFullYear();
+  public listaNaoFinalizada = [];
+  public listaSeisDias = [];
+  public listaFinalizacoes = [];
   // Quantidade de milesegundos para deixar a data com o GTM -0300 (America/Sao_Paulo)
   private gtm3 = new Date().getTimezoneOffset() * 60 * 1000;
+  // Para configurar o ion-input type=date
+  public dataPesquisa = '';
 
-  listarSeisDias(data: string) {
-    const dataDate = new Date(data).getTime() + this.gtm3;
+  listarSeisDias() {
+    // Carregar lista de não finalizado com DiaObservacao[] junto. Retirar desta lista as sublistas
+    // de seis dias e finalização. Alterar método Carregar inoculação por ID para apenas passar
+    // a inoculação já carregada e não buscá-la novamente do banco
 
-    console.log(dataDate) ;
+    // Melhorar o visual para o usuário saber que está indo para a outra página
 
-    this.inoculacaoService.getListSeisDias(dataDate).subscribe((lista) => {
-      this.listaSeisDias = lista;
+    const dataDate = new Date(this.dataPesquisa).getTime() + this.gtm3;
+
+
+    this.caixaService.listaSeisDias(dataDate);
+    this.caixaService.caixasseis$.subscribe((listaSeis) => {
+      this.listaSeisDias = listaSeis;
     },
-    (error) => {
-      console.log(error);
-    }
-    );
+    (erro) => {
+      console.log(erro);
+    });
 
-    this.inoculacaoService.getListFinalizacao(dataDate).subscribe((lista) => {
+    this.caixaService.listaFinalizacao(dataDate);
+    this.caixaService.caixasfinal$.subscribe((lista) => {
       this.listaFinalizacoes = lista;
     },
     (error) => {
@@ -41,23 +48,24 @@ export class SeisDiasPage implements OnInit {
     }
     );
 
-    this.inoculacaoService.getNaoFinalizada(dataDate).subscribe((lista) => {
-      this.listaNaoFinalizada = lista;
+    this.caixaService.getNaoFinalizada(dataDate);
+    this.caixaService.caixas$.subscribe( (caixas) => {
+      this.listaNaoFinalizada = caixas;
     },
-    (error) => {
-      console.log(error);
-    }
-    );
+    (erro) => {
+      console.log(erro);
+    });
+
   }
 
-  public carregarObservacao(input) {
 
-    this.inoculacaoService.carregarInoculacaoPorID(input.id);
+  public carregarInoculacaoPorId(id) {
+    this.caixaService.carregarInoculacaoPorId(id);
   }
 
   ngOnInit() {
-    const data = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
-    this.listarSeisDias(data);
+    this.dataPesquisa = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    this.listarSeisDias();
   }
 
 }

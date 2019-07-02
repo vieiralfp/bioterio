@@ -14,7 +14,7 @@ export class TokenService {
     localStorage.setItem(TOKEN_STORAGE, token);
   }
 
-  resetarToken() {
+  invalidarToken() {
     localStorage.removeItem(TOKEN_STORAGE);
   }
 }

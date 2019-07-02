@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { NgForm } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { ToastComponent } from 'src/app/components/toast/toast.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,6 @@ export class LoginPage extends ToastComponent {
   public senha = '';
 
   submit() {
-
     this.auth.logar(this.login, this.senha).subscribe((data) => {
       if (data === true) {
         console.log('LoginPage', 'usuario logado');

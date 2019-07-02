@@ -9,7 +9,7 @@
 
 <ion-content padding>
   <ion-list>
-    <div style="border: 1px solid black; border-radius: 10px; padding: 5px; margin: 5px" *ngFor="let i of inoculacaoList" (click)="carregarObservacao(i)">
+    <div style="border: 1px solid black; border-radius: 10px; padding: 5px; margin: 5px" *ngFor="let i of caixaList" (click)="carregarObservacao(i)">
       <div>
         <b>Registro: </b>{{i.principal?.registro}}
       </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule, Events } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { InoculacaoService } from 'src/app/services/inoculacao.service';
+import { CaixaService } from 'src/app/services/caixa.service';
 
 @Component({
   selector: 'app-search',
@@ -13,7 +13,7 @@ export class SearchComponent implements OnInit {
 
   constructor(public events: Events,
               private router: Router,
-              private inoculacaoService: InoculacaoService) {}
+              private caixaService: CaixaService) {}
 
   public anoInicial = new Date();
 
@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit {
 
       switch (this.input.local) {
         case 'infectorio': {
-          this.inoculacaoService.carregarInoculacaoPorDataAno(this.input.numero, this.input.ano);
+          this.caixaService.carregarInoculacaoPorDataAno(this.input.numero, this.input.ano);
           break;
         }
         case 'nucleo': {
@@ -38,12 +38,12 @@ export class SearchComponent implements OnInit {
     }
 
     atualizaLocal() {
-      this.inoculacaoService.local = this.input.local;
+      this.caixaService.local = this.input.local;
       console.log(this.input.local);
     }
 
     ngOnInit(): void {
-      this.input.local = this.inoculacaoService.local;
+      this.input.local = this.caixaService.local;
     }
 
 }

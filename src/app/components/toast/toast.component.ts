@@ -21,6 +21,17 @@ export class ToastComponent implements OnInit {
     toast.present();
   }
 
+  public async presentToastColorDuracao(texto, cor: string, duracao: number ) {
+    const toast = await this.toastController.create({
+      message: texto,
+      duration: duracao,
+      position: 'top',
+      translucent: true,
+      color: cor
+    });
+    toast.present();
+  }
+
 
   ngOnInit() {
   }

@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DiaObservacao } from '../../interface/dia-observacao';
 import { ActionSheetController, ToastController } from '@ionic/angular';
-import { InoculacaoService } from 'src/app/services/inoculacao.service';
 import { ToastComponent } from '../toast/toast.component';
+import { Caixa } from 'src/app/interface/caixa';
+import { CaixaService } from 'src/app/services/caixa.service';
 
 @Component({
   selector: 'app-dia-observacao',
@@ -12,14 +13,14 @@ import { ToastComponent } from '../toast/toast.component';
 export class DiaObservacaoComponent extends ToastComponent implements OnInit {
 
 
-
-  @Input() diaObservacao: DiaObservacao = <DiaObservacao>{};
+  @Input() caixa: Caixa = null;
+  @Input() diaObservacao: DiaObservacao = {} as DiaObservacao;
 
 
   constructor(public alertCtrl: ActionSheetController,
-    private inoculacaoService: InoculacaoService,
-    public toastController: ToastController) {
-      super(toastController);
+              private caixaService: CaixaService,
+              public toastController: ToastController) {
+                super(toastController);
 
   }
   public class1 = [];
@@ -33,7 +34,7 @@ export class DiaObservacaoComponent extends ToastComponent implements OnInit {
 
   private preencherCampos(diaObservacao: DiaObservacao) {
 
-    this.dia = (Math.ceil((diaObservacao.dataObservacao - diaObservacao.inoculacao.dataInoculacao) / (24 * 60 * 60 * 1000)));
+    this.dia = (Math.ceil((diaObservacao.dataObservacao - this.caixa.dataInoculacao) / (24 * 60 * 60 * 1000)));
     this.seisDias = this.dia === 6;
 
     let i = 0;
@@ -87,44 +88,43 @@ export class DiaObservacaoComponent extends ToastComponent implements OnInit {
   }
 
   getDiaObservacao(): DiaObservacao {
-    let saudaveis = 0;
-    let doentes = 0;
-    let eutanasias = 0;
-    let perdidos = 0;
-    let mortos = 0;
+    let saud = 0;
+    let doen = 0;
+    let euta = 0;
+    let perd = 0;
+    let mort = 0;
 
     this.camundongo.forEach(element => {
 
       switch (element) {
         case '|':
-          saudaveis++;
+          saud++;
           break;
         case 'D' :
-          doentes++;
+          doen++;
           break;
         case 'E':
-          eutanasias++;
+          euta++;
           break;
         case 'P':
-          perdidos++;
+          perd++;
           break;
         case 'M':
-          mortos++;
+          mort++;
           break;
         default:
 
         }
       });
-     const valor: DiaObservacao = {id: this.diaObservacao.id,
-                                 saudaveis: saudaveis,
-                                  mortos: mortos,
-                                  doentes: doentes,
-                                  perdidos: perdidos,
-                                  eutanasias: eutanasias,
-                                  dataObservacao: this.diaObservacao.dataObservacao,
-                                  inoculacao: this.diaObservacao.inoculacao };
+    const valor: DiaObservacao = { id: this.diaObservacao.id,
+                                    saudaveis: saud,
+                                    mortos: mort,
+                                    doentes: doen,
+                                    perdidos: perd,
+                                    eutanasias: euta,
+                                    dataObservacao: this.diaObservacao.dataObservacao,
+                                    inoculacao: this.caixa };
 
-    console.log(valor);
     return valor;
   }
 
@@ -199,8 +199,7 @@ export class DiaObservacaoComponent extends ToastComponent implements OnInit {
   }
 
   salvarDiaObservacao() {
-    this.inoculacaoService.editarDiaObservacao(this.getDiaObservacao()).subscribe((data) => {
-      console.log(data);
+    this.caixaService.editarDiaObservacao(this.getDiaObservacao()).subscribe(() => {
       this.presentToast();
     },
     (error) => {

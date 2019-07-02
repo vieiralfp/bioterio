@@ -1,4 +1,5 @@
-import { Inoculacao } from './inoculacao';
+import { Caixa } from './caixa';
+
 
 export interface DiaObservacao {
     id: number;
@@ -8,6 +9,6 @@ export interface DiaObservacao {
     eutanasias: number;
     perdidos: number;
     dataObservacao: number;
-    inoculacao: Inoculacao;
+    inoculacao: Caixa;
 
 }
