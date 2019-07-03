@@ -1,14 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DiaObservacao } from 'src/app/interface/dia-observacao';
 
-import { ActionSheetController, PopoverController, ToastController, Events, MenuController, LoadingController } from '@ionic/angular';
+import { ActionSheetController, ToastController, LoadingController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
 import { Login } from 'src/app/interface/login';
 import { LoginService } from 'src/app/services/login.service';
-import { Router, ActivatedRoute, Data, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { ToastComponent } from 'src/app/components/toast/toast.component';
-import { fromEvent, Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Caixa } from 'src/app/interface/caixa';
 import { CaixaService } from 'src/app/services/caixa.service';
@@ -19,7 +17,7 @@ import { CaixaService } from 'src/app/services/caixa.service';
   templateUrl: './observacao.page.html',
   styleUrls: ['./observacao.page.scss'],
 })
-export class ObservacaoPage extends ToastComponent implements OnInit {
+export class ObservacaoPage extends ToastComponent implements OnInit, OnDestroy {
 
   constructor(private caixaService: CaixaService,
               public datePipe: DatePipe,
@@ -49,6 +47,7 @@ export class ObservacaoPage extends ToastComponent implements OnInit {
   public n = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   public id;
+  private subscription;
 
   async presentMenu() {
     const alert = await this.alertCtrl.create({
@@ -186,11 +185,11 @@ export class ObservacaoPage extends ToastComponent implements OnInit {
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'Carregando',
-      duration: 0
+      duration: 10000
     });
     await loading.present().then(() => {
         this.setListaLogin();
-        this.caixaService.caixa$.subscribe((cx) => {
+        this.subscription = this.caixaService.caixa$.subscribe((cx) => {
         if (cx != null) {
           this.caixa = cx;
           this.diaObservacao = cx.observacaocamundongolist;
@@ -209,6 +208,10 @@ export class ObservacaoPage extends ToastComponent implements OnInit {
 
   ngOnInit(): void {
     this.presentLoading();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   }

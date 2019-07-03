@@ -5,6 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfiguracoesService } from './configuracoes.service';
 import { DiaObservacao } from '../interface/dia-observacao';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import { ToastComponent } from '../components/toast/toast.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,10 @@ export class CaixaService {
 
   constructor(private http: HttpClient,
               private config: ConfiguracoesService,
-              private router: Router) {
+              private router: Router,
+              private toastControler: ToastController) {
+
+    this.toast = new ToastComponent(this.toastControler);
 
     this._CAIXAS = new BehaviorSubject(null);
     this.caixas$ = this._CAIXAS.asObservable();
@@ -28,7 +33,9 @@ export class CaixaService {
     this.caixa$ = this._CAIXA.asObservable();
    }
 
-  private _CAIXAS: BehaviorSubject<Caixa[]>;
+   private toast: ToastComponent;
+
+  public _CAIXAS: BehaviorSubject<Caixa[]>;
   public readonly caixas$: Observable<Caixa[]>;
 
   private _CAIXASSEIS: BehaviorSubject<Caixa[]>;
@@ -37,7 +44,7 @@ export class CaixaService {
   private _CAIXASFINAL: BehaviorSubject<Caixa[]>;
   public readonly caixasfinal$: Observable<Caixa[]>;
 
-  private _CAIXA: BehaviorSubject<Caixa>;
+  public _CAIXA: BehaviorSubject<Caixa>;
   public readonly caixa$: Observable<Caixa>;
   public local;
 
@@ -127,7 +134,6 @@ export class CaixaService {
     }
 
     public carregarInoculacaoPorDataAno(numero, ano) {
-
       if (numero != null && ano != null) {
 
         this.getListaInoculacao(numero, ano).subscribe((data) => {
@@ -141,7 +147,7 @@ export class CaixaService {
             this.router.navigate(['lista-observacao']);
 
           } else if (data.length === 0) {
-            return 'Caixa não encontrada';
+            this.toast.presentToastColor('Caixa não encontrada', 'dark');
           }
 
         },
